@@ -22,7 +22,8 @@ import json
 import requests
 
 
-
+def home(request):
+    return render(request, 'home.html')
 
 # Create your views here.
 def predictor(request):
