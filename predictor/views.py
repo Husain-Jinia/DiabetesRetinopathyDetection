@@ -6,10 +6,12 @@ import seaborn as sns
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
+from imblearn.over_sampling import SMOTE
 from django.views.generic import  CreateView
-from .forms import PredictionForm
+from .forms import DiabetesbasicPredictionForm, PredictionForm
 from .models import *
 import csv
+from sklearn.metrics import confusion_matrix
 from django.http import FileResponse, QueryDict
 import io
 from reportlab.pdfgen import canvas
@@ -18,6 +20,7 @@ from reportlab.lib.pagesizes import letter
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase import pdfmetrics
 from reportlab.lib import colors
+import pickle
 import json
 import requests
 
@@ -258,6 +261,85 @@ def suggestion():
     print(data)
     return data
     
+
+def diabetesbasic(request):
+    forms_pk = None
+    
+    form= DiabetesbasicPredictionForm(request.POST )
+    context = {'form':form }
+    if form.is_valid():
+        form.save()
+        x = form.save()
+        forms_pk = x.pk
+        return redirect(f'/result/'+ str(forms_pk))
+    return render(request,'diabetesbasicpred.html',context)
+
+def diabetesbasicpred(request,pk):
+    pk=int(pk)
+    # user
+    # smoker
+    # heartDiseaseorAttack
+    # stroke
+    # fruits
+    # physActivity
+    # veggies
+    # hvyAlcoholConsumpany
+    # HealthCare
+    # NoDocCost
+    # diffWalking
+    # sex
+    # genHealth
+    # age
+
+    values = DiabetesData.objects.get(pk=pk)
+
+
+    val2 = float(values.smoker)
+    val3 = float(values.heartDiseaseorAttack)
+    val4 = float(values.stroke)
+    val5 = float(values.fruits)
+    val6 = float(values.physActivity)
+    val7 = float(values.veggies)
+    val8 = float(values.hvyAlcoholCosumpany)
+    val9 = float(values.HealthCare)
+    val10 = float(values.NoDocCost)
+    val11 = float(values.diffWalking)
+    val12 = float(values.sex)
+    val13 = float(values.genHealth)
+    val14 = float(values.age)
+
+    # data= pd.read_csv("archive\diabetes_012_health_indicators_BRFSS2015.csv")
+    # data.drop(['Education', 'Income'], axis = 1, inplace = True) 
+    # X = data.loc[:, data.columns != 'Diabetes_012']
+    # y = data.loc[:, data.columns == 'Diabetes_012']
+
+    # os = SMOTE(random_state=0)
+    # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
+    # columns = X_train.columns
+
+    # os_data_X,os_data_y=os.fit_resample(X_train, y_train)
+    # os_data_X = pd.DataFrame(data=os_data_X,columns=columns )
+    # os_data_y= pd.DataFrame(data=os_data_y,columns=['Diabetes_012'])
+
+    # data_X= data[X]
+    # data_y= data[y]
+    # X_train, X_test, y_train, y_test = train_test_split(data_X, data_y, test_size=0.3, random_state=0)
+    # logreg = LogisticRegression()
+    # logreg.fit(X_train, y_train)
+    # y_pred = logreg.predict(X_test)
+
+    # confusion_matrix = confusion_matrix(y_test, y_pred)
+    # pred_all1s= logreg.predict(X_test.iloc[0].values.reshape(1, -1).tolist())
+    # pred_all1s
+    # y_test.iloc[0]
+
+    loaded_model = pickle.load(open('/home/husain/Projects/IBM-mini-project/models/diabetes_basic_model.sav', 'rb'))
+    # result = loaded_model.score(X_test, Y_test)
+
+    y_pred= loaded_model.predict([[val2,val3,val4,val5,val6,val7,val8,val9,val10,val11,val12,val13,val14]])
+    print(y_pred)
+
+
 
 
 
