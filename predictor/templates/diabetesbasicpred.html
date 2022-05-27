@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="p-4 m-4" style="display: flex; flex-direction: row; "> 
+        <div class= "col-lg-4 mt-4 mb-4 mx-auto border rounded pt-4 m-4 p-4  m-4 p-3" style="background-color: white; ">
+            <div class="content-section">
+                <form method="POST" >
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+                        <legend class="border-bottom mb-4"><center>Diabetic Retniopathy </center></legend>
+                        {{ form.as_p }}
+                    </fieldset>
+                    <div class="form-group">
+                        <button class="btn btn-outline-dark" type="submit" >predict</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
