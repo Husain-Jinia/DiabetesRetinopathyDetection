@@ -291,7 +291,7 @@ def diabetesbasicpred(request,pk):
     # genHealth
     # age
 
-    values = DiabetesData.objects.get(pk=pk)
+    values = DiabetesBasic.objects.get(pk=pk)
 
 
     val2 = float(values.smoker)
@@ -300,8 +300,8 @@ def diabetesbasicpred(request,pk):
     val5 = float(values.fruits)
     val6 = float(values.physActivity)
     val7 = float(values.veggies)
-    val8 = float(values.hvyAlcoholCosumpany)
-    val9 = float(values.HealthCare)
+    val8 = float(values.hvyAlcoholCosump)
+    val9 = float(values.anyHealthCare)
     val10 = float(values.NoDocCost)
     val11 = float(values.diffWalking)
     val12 = float(values.sex)
@@ -338,6 +338,16 @@ def diabetesbasicpred(request,pk):
 
     y_pred= loaded_model.predict([[val2,val3,val4,val5,val6,val7,val8,val9,val10,val11,val12,val13,val14]])
     print(y_pred)
+
+    result=""
+    if y_pred == [1]:
+        result = "POSITIVE"
+        # data = suggestion()
+        return render(request, 'result.html',{'result':result,'values':values})
+    else:
+        result="NEGATIVE"
+        return render(request, 'result.html', {'result':result,'values':values}) 
+        
 
 
 

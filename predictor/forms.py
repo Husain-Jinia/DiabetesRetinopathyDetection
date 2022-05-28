@@ -23,17 +23,16 @@ class DiabetesbasicPredictionForm(forms.ModelForm):
     
     class Meta:
         model = DiabetesBasic
-        fields = {'user','smoker','heartDiseaseorAttack','stroke','fruits','physActivity','veggies','hvyAlcoholConsumpany','HealthCare','NoDocCost','diffWalking','sex','genHealth','age'}
+        fields = {'smoker','heartDiseaseorAttack','stroke','fruits','physActivity','veggies','hvyAlcoholConsump','anyHealthCare','NoDocCost','diffWalking','sex','genHealth','age'}
         widgets={
-        'user': forms.TextInput(attrs={'class':'form-control py-2'}),
         'smoker' : forms.TextInput(attrs={'class':'form-control py-2'}),
         'heartDiseaseorAttack' : forms.TextInput(attrs={'class':'form-control py-2'}),
         'stroke' : forms.TextInput(attrs={'class':'form-control py-2'}),
         'fruits' : forms.TextInput(attrs={'class':'form-control py-2'}),
         'physActivity' : forms.TextInput(attrs={'class':'form-control py-2'}),
         'veggies' : forms.TextInput(attrs={'class':'form-control py-2'}),
-        'hvyAlcoholConsumpany' : forms.TextInput(attrs={'class':'form-control py-2'}),
-        'HealthCare' : forms.TextInput(attrs={'class':'form-control py-2'}),
+        'hvyAlcoholConsump' : forms.TextInput(attrs={'class':'form-control py-2'}),
+        'anyHealthCare' : forms.TextInput(attrs={'class':'form-control py-2'}),
         'NoDocCost' : forms.TextInput(attrs={'class':'form-control py-2'}),
         'diffWalking' : forms.TextInput(attrs={'class':'form-control py-2'}),
         'sex' : forms.TextInput(attrs={'class':'form-control py-2'}),

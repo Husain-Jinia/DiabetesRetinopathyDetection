@@ -26,7 +26,6 @@ class DiabetesData(models.Model):
 # TODO (#2) : Replace IntegerField with IntegerChoices field
 
 class DiabetesBasic(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, )
     smoker = models.IntegerField(max_length=1,default=0)
     heartDiseaseorAttack = models.IntegerField(max_length=1,default=0)
     stroke = models.IntegerField(max_length=1,default=0)
@@ -40,9 +39,6 @@ class DiabetesBasic(models.Model):
     sex =models.IntegerField(max_length=1,default=0)
     genHealth = models.IntegerField(max_length=1, default=0)
     age = models.IntegerField(max_length=3,default=0)
-
-    def __str__(self):
-        return self.user.username
 
 
 

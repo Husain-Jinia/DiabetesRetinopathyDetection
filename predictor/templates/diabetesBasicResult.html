@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container ">
+    <h1>result: <span><h3>{{result}}</h3></span></h1>
+    <button onclick="generationFunc()" class="btn btn-outline-dark"><a href="{% url 'result_pdf' values.pk %}" style="text-decoration:none;color:black"> Generate pdf</a></button>
+    
+</div>
+<div style="text-align:center" id="msg">
+
+</div>
+<div style="color:black">
+    {% for sugdata in data %}
+    <div>
+        {% if sugdata.properties.country is None %}
+        <p>country : unavailable</p>
+        {% else %}
+        <p>country : {{sugdata.properties.country}}</p>
+        {% endif %}
+        
+        {% if sugdata.properties.city is None %}
+        <p>city : unavailable</p>
+        {% else %}
+        <p>city : {{sugdata.properties.city}}</p>
+        {% endif %}
+    </div>
+
+    {% endfor %}
+</div>
+
+
+<script>
+    function generationFunc()
+    {
+        document.getElementById("msg").innerHTML="document is being downloaded"; 
+    }
+
+</script>
+{% endblock content %}
