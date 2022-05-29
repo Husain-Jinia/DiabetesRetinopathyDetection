@@ -266,6 +266,7 @@ def diabetesbasic(request):
     forms_pk = None
     
     form= DiabetesbasicPredictionForm(request.POST )
+    form = list(form)
     context = {'form':form }
     if form.is_valid():
         form.save()
