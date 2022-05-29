@@ -1,18 +1,19 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block content %}
 <div >
     <div class="container" >
         <div class="p-4 m-4" style="display: flex; flex-direction: row; max-width:100vw" > 
-            <div class= "col-lg-4 mt-4 mb-4 mx-auto border rounded pt-4 m-4 p-4  m-4 p-3" style="background-color: #F8F8F8; ">
+            <div class= "col-lg-9 mt-4 mb-4 mx-auto border rounded pt-4 m-4 p-4  m-4 p-3" style="background-color: #F8F8F8; ">
                 <div class="content-section">
                     <form method="POST">
                         {% csrf_token %}
-                        <fieldset class="form-group">
-                            <legend class="border-bottom mb-4"><center>Diabetes basic </center></legend>
-                            <input type="text" name="user" value="{{request.user}}">
-                            {{ form.as_p }}
+                            <fieldset class="form-group">
+                                <legend class="border-bottom mb-4"><center>Diabetes basic </center></legend>
+                                <input type="text" name="user" value="{{request.user}}">
+                                {{form|crispy }}
                             
-                        </fieldset>
+                            </fieldset>
                         <div class="form-group">
                             <button class="btn btn-outline-dark" type="submit" >predict</button>
                         </div>

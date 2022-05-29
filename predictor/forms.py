@@ -1,5 +1,8 @@
+
 from django import forms
 from .models import *
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Fieldset,Field, Div,Row,Column
 
 class PredictionForm(forms.ModelForm):
 
@@ -39,3 +42,15 @@ class DiabetesbasicPredictionForm(forms.ModelForm):
         'genHealth' : forms.TextInput(attrs={'class':'form-control py-2'}),
         'age' : forms.TextInput(attrs={'class':'form-control py-2'})
         }
+
+        def __init__(self, *args, **kwargs):
+            super.__init__(*args, **kwargs)
+            self.helper = FormHelper()
+            self.helper.layout = Layout(
+                Row(
+                    Column('smoker'),
+                    Column('heartDiseaseorAttack')
+                )
+
+            )
+            
