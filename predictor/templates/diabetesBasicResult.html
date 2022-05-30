@@ -1,38 +1,153 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container ">
-    <h1>result: <span><h3>{{result}}</h3></span></h1>
-    <button onclick="generationFunc()" class="btn btn-outline-dark"><a href="{% url 'result_pdf' values.pk %}" style="text-decoration:none;color:black"> Generate pdf</a></button>
-    
-</div>
-<div style="text-align:center" id="msg">
-
-</div>
-<div style="color:black">
-    {% for sugdata in data %}
-    <div>
-        {% if sugdata.properties.country is None %}
-        <p>country : unavailable</p>
-        {% else %}
-        <p>country : {{sugdata.properties.country}}</p>
-        {% endif %}
+    <div class="container ">
+        <table class="table-list">
+            <thead class="sticky-thead">
+                <tr>
+                    <th colspan="" class=""> Factors</th>
+                    <th colspan="" class="align-center"> Response </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class=""><strong>Smoker</strong>
+                    </td>
+                    <td class="align-center"> {{values.smoker}}</td>
+                </tr>
+                <tr>
+                    <td class=""><strong>Stroke</strong>
+                    </td>
+                    <td class="align-center"> {{values.stroke}}</td>
+                </tr>
+                <tr>
+                    <td class=""><strong>Heart Disease or Attack</strong>
+                    </td>
+                    <td class="align-center">{{values.heartDiseaseorAttack}} </td>
+                </tr>
+                <tr>
+                    <td class=""><strong>fruits</strong>
+                    </td>
+                    <td class="align-center">{{values.fruits}} </td>
+                </tr>
+                <tr>
+                    <td class=""><strong>Physical activity</strong>
+                    </td>
+                    <td class="align-center">{{values.physActivity}} </td>
+                </tr>
+                <tr>
+                    <td class=""><strong>Veggies</strong>
+                    </td>
+                    <td class="align-center"> {{values.veggies}}</td>
+                </tr>
+                <tr>
+                    <td class=""><strong>Heavy alcohol comsumption</strong>
+                    </td>
+                    <td class="align-center">{{values.hvyAlcoholConsump}} </td>
+                </tr>
+                <tr>
+                    <td class=""><strong>Any Health Care</strong>
+                    </td>
+                    <td class="align-center"> {{values.anyHealthCare}}</td>
+                </tr>
+                <tr>
+                    <td class=""><strong>No Doctor cost</strong>
+                    </td>
+                    <td class="align-center"> {{values.NoDocCost}}</td>
+                </tr>
+                <tr>
+                    <td class=""><strong>Difficulty Walking</strong>
+                    </td>
+                    <td class="align-center">{{values.diffWalking}} </td>
+                </tr>
+                <tr>
+                    <td class=""><strong>Sex</strong>
+                    </td>
+                    <td class="align-center">{{values.sex}} </td>
+                </tr>
+                <tr>
+                    <td class=""><strong>general Health</strong>
+                    </td>
+                    <td class="align-center">{{values.genHealth}} </td>
+                </tr>
+                <tr>
+                    <td class=""><strong>Age</strong>
+                    </td>
+                    <td class="align-center"> {{values.age}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <button onclick="generationFunc()" class="btn btn-outline-dark"><a href="{% url 'result_pdf' values.pk %}" style="text-decoration:none;color:black"> Generate pdf</a></button>
         
-        {% if sugdata.properties.city is None %}
-        <p>city : unavailable</p>
-        {% else %}
-        <p>city : {{sugdata.properties.city}}</p>
-        {% endif %}
     </div>
+    <div style="text-align:center" id="msg">
 
-    {% endfor %}
-</div>
+    </div>
+    <div style="color:black">
+        {% for sugdata in data %}
+        <div>
+            {% if sugdata.properties.country is None %}
+            <p>country : unavailable</p>
+            {% else %}
+            <p>country : {{sugdata.properties.country}}</p>
+            {% endif %}
+            
+            {% if sugdata.properties.city is None %}
+            <p>city : unavailable</p>
+            {% else %}
+            <p>city : {{sugdata.properties.city}}</p>
+            {% endif %}
+        </div>
 
+        {% endfor %}
+    </div>
+    <style>
+        .table-list {
+            font-family: sans-serif;
+            margin-inline: auto;
+            margin-top: 1.2rem;
+            text-align: left;
+            border-collapse: collapse;
+            border: none;
+          }
+          .table-list td,
+          .table-list th {
+            padding: 1.15em 1.5rem;
+            position: relative;
+            transition: font-size 0.1s, padding 0.1s;
+          }
+          @media (max-width: 1299px) {
+            .table-list td,
+          .table-list th {
+              font-size: 13.6px;
+              padding: 0.75rem 0.6818181818rem;
+            }
+          }
+          .table-list td.align-right,
+          .table-list th.align-right {
+            text-align: right;
+          }
+          .table-list td.align-center,
+          .table-list th.align-center {
+            text-align: center;
+          }
+          .table-list thead.sticky-thead {
+            position: sticky;
+            inset-block-start: 0;
+            z-index: 2;
+            background-color: white;
+            box-shadow: 0 2px 0 0 gray;
+          }
+          .table-list thead.sticky-thead th {
+            box-shadow: 0 2px 0 0 gray;
+          }
+    </style>
+    
+    <script>
+        function generationFunc()
+        {
+            document.getElementById("msg").innerHTML="document is being downloaded"; 
+        }
 
-<script>
-    function generationFunc()
-    {
-        document.getElementById("msg").innerHTML="document is being downloaded"; 
-    }
-
-</script>
+    </script>
+    
 {% endblock content %}

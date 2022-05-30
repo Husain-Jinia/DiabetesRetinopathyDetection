@@ -272,7 +272,8 @@ def diabetesbasic(request):
         form.save()
         x = form.save()
         forms_pk = x.pk
-        return redirect(f'/result/'+ str(forms_pk))
+
+        return redirect(f'/diabetesbasicresult/'+ str(forms_pk))
     return render(request,'diabetesbasicpred.html',context)
 
 def diabetesbasicpred(request,pk):
@@ -301,7 +302,7 @@ def diabetesbasicpred(request,pk):
     val5 = float(values.fruits)
     val6 = float(values.physActivity)
     val7 = float(values.veggies)
-    val8 = float(values.hvyAlcoholCosump)
+    val8 = float(values.hvyAlcoholConsump)
     val9 = float(values.anyHealthCare)
     val10 = float(values.NoDocCost)
     val11 = float(values.diffWalking)
@@ -343,11 +344,11 @@ def diabetesbasicpred(request,pk):
     result=""
     if y_pred == [1]:
         result = "POSITIVE"
-        # data = suggestion()
-        return render(request, 'result.html',{'result':result,'values':values})
+        data = suggestion()
+        return render(request, 'diabetesBasicResult.html',{'result':result,'values':values, 'data':data})
     else:
         result="NEGATIVE"
-        return render(request, 'result.html', {'result':result,'values':values}) 
+        return render(request, 'diabetesBasicResult.html', {'result':result,'values':values}) 
         
 
 

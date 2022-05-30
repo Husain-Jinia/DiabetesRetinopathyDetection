@@ -3,7 +3,7 @@
 <!DOCTYPE html> 
    <section id="home">
        <header>
-           <div class="container">
+           <div class="container1">
                <div class="left">
                    <p  class="logo">Di - Free - se</p>
                    <div class="hm-menu">
@@ -40,43 +40,108 @@
     
 
 </section>
-<section class="d-flex" style="flex-direction:column; height:80vh" id="services">
+<section class="d-flex" style="flex-direction:column;" id="services">
     <div class="title" style="color:white;text-align :center">
         <h2>SERVICES</h2>
     </div>
-    <div class="service-section" style="margin-top:5rem">
-      <div class="card-grid ">
-        <a class="card mx-3" href="{%url 'diabetesbasic'%}">
-          <div class="card__background" style="background-image: url(../../static/photos/diabetes.jpg)"></div>
-          <div class="card__content">
-            <p class="card__category">Diabetes</p>
-            <h3 class="card__heading">Basic</h3>
-          </div>
-        </a>
-        <a class="card mx-3" href="#">
-          <div class="card__background" style="background-image: url(../../static/photos/diabetes_retinopathy.jpg)"></div>
-          <div class="card__content">
-            <p class="card__category">Diabetes</p>
-            <h3 class="card__heading">Retinopathy</h3>
-          </div>
-        </a>
-        <a class="card mx-3" href="#">
-          <div class="card__background" style="background-image: url(../../static/photos/parkinsons.jpg)"></div>
-          <div class="card__content">
-            <p class="card__category">Parkinsons</p>
-            <h3 class="card__heading">Basic</h3>
+    <div class="container">
+      <!-- SLIDER STARTS HERE -->
+      <ul id="autoWidth" class="cs-hidden" style="margin-top:5rem">
+        <!-- SLIDER 1 -->
+        <li class="item-a">
+          <div class="box">
+            
+            <img
+              src="../static/photos/diabetes.jpg"
+              class="model "
+
+
+            />
+            <h2>Diabetes Basic</h2>
+            <div class="details my-3">
+             <button class="btn btn-outline-dark"><a href="{%url 'diabetesbasic'%}" style="text-decoration:none; color:black;">Get diagnosed</a></button>
+            </div>
           </div>
         </li>
-        <a class="card mx-3" href="#">
-          <div class="card__background" style="background-image: url(../../static/photos/heart_disease.jpg)"></div>
-          <div class="card__content">
-            <p class="card__category">Heart Disease</p>
-            <h3 class="card__heading">Basic</h3>
+
+        <!-- SLIDER 2 -->
+        <li class="item-a">
+          <div class="box">
+            
+            <img
+              src="../static/photos/parkinsons.jpg"
+              class="model"
+              
+            />
+            <h2>Parkinson's Disease</h2>
+            <div class="details my-3">
+              <button class="btn btn-outline-dark">Get diagnosed</button>
+            </div>
           </div>
-        </a>
-      <div>
+        </li>
+
+        <!-- SLIDER 2 -->
+        <li class="item-a">
+          <div class="box">
+            
+            <img
+              src="../static/photos/heart_disease.jpg"
+              class="model"
+              
+            />
+            <h2>Heart Disease</h2>
+            <div class="details my-3">
+              <button class="btn btn-outline-dark">Get diagnosed</button>
+            </div>
+          </div>
+        </li>
+
+        <!-- SLIDER 3 -->
+        <li class="item-a">
+          <div class="box">
+            
+            <img
+              src="../static/photos/dr.jpg"
+              class="model"
+              
+            />
+            <h2>Diabetes retinopathy</h2>
+            <div class="details my-3">
+             
+              <button class="btn btn-outline-dark">Get diagnosed</button>
+            </div>
+          </div>
+        </li>
+
+        <!-- SLIDER 4 -->
+        <li class="item-a">
+          <div class="box">
+           
+            <img
+              src=""
+              class="model"
+              
+            />
+            </h2>Coming soon</h2>
+            <div class="details my-3">
+              <button class="btn btn-outline-dark">Get diagnosed</button>
+            </div>
+          </div>
+        </li>
+      </ul>
     </div>
-   
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/lightslider/1.1.6/js/lightslider.min.js"
+      integrity="sha256-nHmCK+HOPMPezzS3ky9VKznMWH4sW4keT8HrMaDNbYo="
+      crossorigin="anonymous"
+    ></script>
+    <script src="index.js"></script>
 </section>
 <section class="d-flex" style="flex-direction:column" id="about">
     <div class="title" style="color:white;text-align :center">
@@ -90,10 +155,6 @@
 </section>
 
 </div>
-
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="js/custom.js"></script>
-
 <style>
   *{
     margin: 0;
@@ -143,7 +204,7 @@ header{
     z-index: 1000;
 }
 
-.container{
+.container1{
     padding-top: 10px;
     width: 1170px;
     margin: 0 auto;
@@ -250,6 +311,7 @@ nav ul li a:hover::after{
     width:100%;
     height: 100vh;
     padding: 60px 0;
+    text-underline-offset: 0.7em;
     text-decoration:underline;
     text-decoration-thickness: 0.27em;
     text-decoration-color: red;
@@ -303,7 +365,7 @@ nav ul li a:hover::after{
 }
 
 @media only screen and (max-width:1200px){
-    .container{
+    .container1{
         margin: 0 15px;
         width: calc(100% - 30px);
     }
@@ -348,7 +410,7 @@ nav ul li a:hover::after{
         top: calc(100% - 10px);
     }
     
-    .container{
+    .container1{
         -webkit-box-orient: vertical;
         -webkit-box-direction: normal;
             -ms-flex-direction: column;
@@ -443,108 +505,91 @@ nav ul li a:hover::after{
     {% comment %} services {% endcomment %}
     
 }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+h1 {
+  margin-bottom: 10px;
+}
+
+
+.box {
+  padding: 0.3rem;
+  width: 400px;
+  height: 500px;
+  border-radius:10px;
+  background: 	#E5E4E2;
+  box-shadow: 2px 10px 12px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 10px;
+}
+
+.box:hover {
+  background: grey;
+  transform-style: preserve-3d;
+  transform: scale(1.02);
+  transition: all ease 0.3s;
+}
+
+.model {
+  margin-top:0.17rem;
+  height: 300px;
+  max-height: 100%;
+  max-width: 100%;
+  border-radius:10px
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+}
+
+.details p {
+  font-weight: bold;
+  color: grey;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.box h2{
+  font-weight:400;
+  font-family: system-ui;
+}
+
+.box:hover h2 {
+  color: red;
+  transition: all ease 0.5ms;
+}
+
+@media (max-width: 720px) {
+  .box {
+    width: 100%;
+    height: 500px;
+  }
+
+  .model {
+    height: 300px;
+    width: 300px
+  }
+
+  .details p {
+    font-size: 16px;
+  }
+}
 
 </style>
-<style>
-  :root {
-    --background-dark: #2d3548;
-    --text-light: rgba(255, 255, 255, 0.6);
-    --text-lighter: rgba(255, 255, 255, 0.9);
-    --spacing-s: 8px;
-    --spacing-m: 16px;
-    --spacing-l: 24px;
-    --spacing-xl: 32px;
-    --spacing-xxl: 64px;
-    --width-container: 1200px;
-  }
-  .service-section{
-    align-items: flex-start;
-    display: flex;
-    min-height: 100%;
-    justify-content: center;
-    padding: var(--spacing-xxl) var(--spacing-l);
-  }
-
-  .card-grid {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    grid-column-gap: var(--spacing-l);
-    grid-row-gap: var(--spacing-l);
-    max-width: var(--width-container);
-    width: 100%;
-  }
-  
-  @media (min-width: 540px) {
-    .card-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  
-  @media (min-width: 960px) {
-    .card-grid {
-      grid-template-columns: repeat(4, 1fr);
-    }
-  }
-  
-  .card {
-    border: none;
-    list-style: none;
-    position: relative;
-    background-color:#040720;
-  }
-  
-  .card:before {
-    content: "";
-    display: block;
-    padding-bottom: 150%;
-    width: 100%;
-  }
-  
-  .card__background {
-    background-size: cover;
-    background-position: center;
-    border-radius: var(--spacing-l);
-    bottom: 0;
-    filter: brightness(0.75) saturate(1.2) contrast(0.85);
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    transform-origin: center;
-    trsnsform: scale(1) translateZ(0);
-    transition: filter 200ms linear, transform 200ms linear;
-  }
-  
-  .card:hover .card__background {
-    transform: scale(1.05) translateZ(0);
-  }
-  
-  .card-grid:hover > .card:not(:hover) .card__background {
-    filter: brightness(0.5) saturate(0) contrast(1.2) blur(20px);
-  }
-  
-  .card__content {
-    left: 0;
-    padding: var(--spacing-l);
-    position: absolute;
-    top: 0;
-  }
-  
-  .card__category {
-    color: var(--text-light);
-    font-size: 0.9rem;
-    margin-bottom: var(--spacing-s);
-    text-transform: uppercase;
-  }
-  
-  .card__heading {
-    color: var(--text-lighter);
-    font-size: 1.9rem;
-    text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.2);
-    line-height: 1.4;
-    word-spacing: 100vw;
-  }
-
 
 </style>
 <script>
@@ -560,6 +605,18 @@ nav ul li a:hover::after{
          $('header').addClass('activex');
      });
  });
+
+ $(document).ready(function () {
+  $("#autoWidth").lightSlider({
+    autoWidth: true,
+    loop: true,
+    onSliderLoad: function () {
+      $("#autoWidth").removeClass("cS-hidden");
+    },
+  });
+});
+
+
 </script>
 
 {% endblock content %}

@@ -8,6 +8,6 @@ urlpatterns = [
     path('predict/', predictor, name="predict"),
     path('result/<int:pk>',result, name="result"),
     path('diabetesbasic/', diabetesbasic, name='diabetesbasic'),
-    path('diabetesbasicresult', diabetesbasicpred, name='diabetesbasicpred'),
+    path('diabetesbasicresult/<int:pk>', diabetesbasicpred, name='diabetesbasicpred'),
     path('result_pdf/<int:pk>',result_pdf, name="result_pdf"),
 ]
