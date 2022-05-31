@@ -1,7 +1,27 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="container">
-       logged out
+    <div class="container" style="color:#eee">
+       <div class="display:flex;flex-direction:column;" style="text-align:center; margin-top:4rem">
+           <h1>LOGGED OUT</h1>
+           <div style="margin-top: 3rem">
+                <h3>Hope we were useful :] </h3>
+           </div>
+           <center>
+            <div style="object-align:center; margin-top:3rem;">
+                <a href="{% url 'home' %}" style="background-color: #9B5DE5; width: 210px;" class="btn px-4 py-3 mt-4 my-4 text-white d-flex align-items-center justify-content-between">
+                    <span>BACK TO HOME PAGE</span>
+                    
+                  </a>
+               </div>
+           </center>
+           
+           
+       </div>
     </div>
+    <style>
+        body{
+            background-color:#29AB87;
+        }
+    </style>
 {% endblock content %}
 
