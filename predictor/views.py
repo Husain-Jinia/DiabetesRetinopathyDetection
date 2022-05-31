@@ -72,7 +72,8 @@ def result(request,pk):
         return render(request, 'result.html',{'result':result,'values':values, 'data':data})
     else:
         result="NEGATIVE"
-        return render(request, 'result.html', {'result':result,'values':values}) 
+        data = suggestion()
+        return render(request, 'result.html', {'result':result,'values':values, 'data':data}) 
         
 
 
