@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
+{%if user.is_authenticated %}
 <div >
     <div class="container" >
         <div class="p-4 m-4" style="display: flex; flex-direction: row; max-width:100vw" > 
@@ -31,4 +32,22 @@
         background:#040720; 
     }
 </style>
+{% else %}
+<div class="container">
+  <div class="content-section">
+      <form method="POST">
+          {% csrf_token %}
+         <h3>Permission Denied !! register or Login first</h3>
+          <div class="form-group my-3">
+              <button  class="btn btn-outline-info" type="submit"><a class="ml-2"  href="{% url 'register' %}">Sign Up<a/></button>
+          </div>
+      </form>
+      <div class="border-top pt-3">
+          <small class="text-muted">
+              Already Have An Account? <a class="ml-2" href="{% url 'login' %}">Sign In</a>
+          </small>
+      </div>
+  </div>
+</div>
+{% endif %}
 {% endblock content %}
