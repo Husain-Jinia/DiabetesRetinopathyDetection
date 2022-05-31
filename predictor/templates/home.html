@@ -15,11 +15,18 @@
                <div class="right">
                    <nav>
                        <ul>
+                       
                            <li><a style="text-decoration: None" href="#home">Home</a></li>
                            <li><a style="text-decoration: None" href="#vision">Vision</a></li>
                            <li><a style="text-decoration: None" href="#services">Services</a></li>
                            <li><a style="text-decoration: None" href="#about">About us</a></li>
                            <li><a style="text-decoration: None" href="#contact">Contact</a></li>
+                           {%if user.is_authenticated %}
+                           <li><a style="text-decoration: None" href="{%url 'logout'%}">Logout</a></li>
+                           {% else %}
+                           <li><a style="text-decoration: None" href="{%url 'register'%}">Register</a></li>
+                           <li><a style="text-decoration: None" href="{%url 'login'%}">Login</a></li>
+                           {% endif %}
                        </ul>
                    </nav>
                </div>
