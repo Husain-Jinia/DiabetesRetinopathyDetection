@@ -41,4 +41,4 @@ class DiabetesBasic(models.Model):
     age = models.IntegerField(max_length=3,default=0)
 
 
-# wfwwrqfc
+# wfwwrqfcsada
