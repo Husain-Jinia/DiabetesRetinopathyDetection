@@ -70,7 +70,7 @@
             </table>
             <button onclick="generationFunc()" class="btn btn-outline-dark  my-3"><a href="{% url 'result_pdf' values.pk %}" style="text-decoration:none;color:white"> Generate pdf</a></button>
         </div>
-        <div class="my-3">
+        <div class="my-3 hide">
             <div class="my-4" style="color: #E8E8E8">
                 <h3>Basic diabetes symptoms</h3>
                 <div class="d-flex justify-content-around" style="flex-direction-column">
@@ -191,6 +191,11 @@
       .table-list thead.sticky-thead th {
         box-shadow: 0 2px 0 0 gray;
       }
+      @media only screen and (max-width:768px){
+          .hide{
+            display:none;
+            }
+        }
 </style>
 
 <script>

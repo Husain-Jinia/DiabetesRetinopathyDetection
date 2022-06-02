@@ -1,5 +1,11 @@
+#basic django imports
 from http.client import HTTPResponse
 from django.shortcuts import redirect, render
+from django.views.generic import  CreateView
+from .forms import DiabetesbasicPredictionForm, PredictionForm
+from .models import *
+
+# model building
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -7,11 +13,13 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 from imblearn.over_sampling import SMOTE
-from django.views.generic import  CreateView
-from .forms import DiabetesbasicPredictionForm, PredictionForm
-from .models import *
 import csv
 from sklearn.metrics import confusion_matrix
+import pickle
+import json
+import requests
+
+#document generation  
 from django.http import FileResponse, QueryDict
 import io
 from reportlab.pdfgen import canvas
@@ -20,15 +28,16 @@ from reportlab.lib.pagesizes import letter
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase import pdfmetrics
 from reportlab.lib import colors
-import pickle
-import json
-import requests
+
 
 
 def home(request):
     return render(request, 'home.html')
 
-# Create your views here.
+# ******************************************************************************************
+# Form for dummy prediction model
+# ******************************************************************************************
+
 def predictor(request):
     forms_pk = None
     
@@ -41,8 +50,12 @@ def predictor(request):
         return redirect(f'/result/'+ str(forms_pk))
     return render(request,'screening.html',context)
     
+#*******************************************************************************************
+# Model for dummy prediction model
+#*******************************************************************************************
 
 def result(request,pk):
+    # dummy model
     data = pd.read_csv(r"/home/husain/Projects/IBM-mini-project/predictor/archive/diabetes.csv")
     pk = int(pk)
     X = data.drop("Outcome", axis=1)
@@ -68,21 +81,16 @@ def result(request,pk):
     result=""
     if pred == [1]:
         result = "POSITIVE"
+        # nearby doctor suggestions
         data = suggestion()
         return render(request, 'result.html',{'result':result,'values':values, 'data':data})
     else:
         result="NEGATIVE"
-        data = suggestion()
-        return render(request, 'result.html', {'result':result,'values':values, 'data':data}) 
-        
+        return render(request, 'result.html', {'result':result,'values':values}) 
 
-
-    
-
-    # result_value = DiabetesData(pk=pk, result=result)
-    # result_value.save()
-
-    
+#*****************************************************************************************
+# Mapping out document coordinates
+#*****************************************************************************************
 
 def drawMyRuler(pdf):
     pdf.drawString(100,810, 'x100')
@@ -99,6 +107,10 @@ def drawMyRuler(pdf):
     pdf.drawString(10,600, 'y600')
     pdf.drawString(10,700, 'y700')
     pdf.drawString(10,800, 'y800')
+
+#*******************************************************************************************
+# pdf generation for dummy model
+#******************************************************************************************* 
 
 def result_pdf(request,pk): 
     buf = io.BytesIO() 
@@ -248,6 +260,14 @@ def result_pdf(request,pk):
 
     return FileResponse(buf, as_attachment=True, filename=fileName)
 
+
+#************************************************************************************
+# nearby doctor suggestions using 
+# ipify API (user ip extraction) 
+# ip-api (location details) 
+# and Photon api (geolocation)
+#************************************************************************************
+
 def suggestion():
     ip = requests.get('http://api.ipify.org?format=json')
     ip_data = json.loads(ip.text)
@@ -256,12 +276,15 @@ def suggestion():
     location_data = json.loads(location_data_one)
     longitude = str(location_data['lat'])
     latitude = str(location_data['lon'])
-    suggestions = requests.get('https://photon.komoot.io/api',params={'lat':latitude,'lon':longitude,'q':'hospital','limit':"2"})
+    suggestions = requests.get('https://photon.komoot.io/api',params={'lat':latitude,'lon':longitude,'q':'hospital','limit':"3"})
     suggestion_data = json.loads(suggestions.text)
     data = suggestion_data['features']
     print(data)
     return data
-    
+
+# *************************************************************************************
+# diabetes basic form
+# *************************************************************************************   
 
 def diabetesbasic(request):
     forms_pk = None
@@ -277,22 +300,12 @@ def diabetesbasic(request):
         return redirect(f'/diabetesbasicresult/'+ str(forms_pk))
     return render(request,'diabetesbasicpred.html',context)
 
+# *************************************************************************************
+# diabetes basic model and results
+# *************************************************************************************   
+
 def diabetesbasicpred(request,pk):
     pk=int(pk)
-    # user
-    # smoker
-    # heartDiseaseorAttack
-    # stroke
-    # fruits
-    # physActivity
-    # veggies
-    # hvyAlcoholConsumpany
-    # HealthCare
-    # NoDocCost
-    # diffWalking
-    # sex
-    # genHealth
-    # age
 
     values = DiabetesBasic.objects.get(pk=pk)
 
@@ -311,31 +324,6 @@ def diabetesbasicpred(request,pk):
     val13 = float(values.genHealth)
     val14 = float(values.age)
 
-    # data= pd.read_csv("archive\diabetes_012_health_indicators_BRFSS2015.csv")
-    # data.drop(['Education', 'Income'], axis = 1, inplace = True) 
-    # X = data.loc[:, data.columns != 'Diabetes_012']
-    # y = data.loc[:, data.columns == 'Diabetes_012']
-
-    # os = SMOTE(random_state=0)
-    # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
-    # columns = X_train.columns
-
-    # os_data_X,os_data_y=os.fit_resample(X_train, y_train)
-    # os_data_X = pd.DataFrame(data=os_data_X,columns=columns )
-    # os_data_y= pd.DataFrame(data=os_data_y,columns=['Diabetes_012'])
-
-    # data_X= data[X]
-    # data_y= data[y]
-    # X_train, X_test, y_train, y_test = train_test_split(data_X, data_y, test_size=0.3, random_state=0)
-    # logreg = LogisticRegression()
-    # logreg.fit(X_train, y_train)
-    # y_pred = logreg.predict(X_test)
-
-    # confusion_matrix = confusion_matrix(y_test, y_pred)
-    # pred_all1s= logreg.predict(X_test.iloc[0].values.reshape(1, -1).tolist())
-    # pred_all1s
-    # y_test.iloc[0]
-
     loaded_model = pickle.load(open('/home/husain/Projects/IBM-mini-project/models/diabetes_basic_model.sav', 'rb'))
     # result = loaded_model.score(X_test, Y_test)
 
@@ -350,11 +338,5 @@ def diabetesbasicpred(request,pk):
     else:
         result="NEGATIVE"
         return render(request, 'diabetesBasicResult.html', {'result':result,'values':values}) 
-        
 
 
-
-
-
-
-    
