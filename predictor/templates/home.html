@@ -23,6 +23,7 @@
                            <li><a style="text-decoration: None" href="#contact">Contact</a></li>
                            {%if user.is_authenticated %}
                            <li><a style="text-decoration: None" href="{%url 'logout'%}">Logout</a></li>
+                           <li><a style="text-decoration: None" href="{%url 'profile'%}">Profile</a></li>
                            {% else %}
                            <li><a style="text-decoration: None" href="{%url 'register'%}">Register</a></li>
                            <li><a style="text-decoration: None" href="{%url 'login'%}">Login</a></li>

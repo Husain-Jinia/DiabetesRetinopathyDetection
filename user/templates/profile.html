@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+{%if user.is_authenticated %}
+    <div class="flex-col">
+        <div class="p-3">
+            {{form.as_p}}
+        </div>
+        <div>
+
+        </div>
+    </div>
+    {% else %}
+    <div>
+        please authenticate
+    </div>
+    {% endif %}
+{% endblock content %}
