@@ -1,17 +1,92 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block content %}
-{%if user.is_authenticated %}
-    <div class="flex-col">
-        <div class="p-3">
-            {{form.as_p}}
+<div class="facts-container-1">
+    <div class="facts-container-2">
+        {% comment %} rendering user info {% endcomment %}
+        <div class="facts-container-image-1">
+            <div class="image-1" style="border:1px solid left">
+                <h2>Your Account</h2>
+                <hr>
+                <img class="image1"  src="{{user.profile.profile_picture.url}}" style="max-width: 150px; max-height: 150px; border-radius:5px" alt="">
+            </div>
+            <div class="text-1">
+                <div class="fact-1-header">
+                    <h2 style="font-size: 19px;"> {{user.username}}</h2>
+                </div>
+                <hr>
+                <div style="margin-top: 1rem;">
+                    <p style="font-size: 15px;">Email : {{user.email}}</p> 
+                    <p style="font-size: 15px;">First name : {{user.first_name}}</p> 
+                    <p style="font-size: 15px;">Last name : {{user.last_name}}</p> 
+                    <p style="font-size: 15px;">age : {{user.profile.age}}</p> 
+                </div>
+            </div>
         </div>
-        <div>
+    </div>
+    {% comment %} Form to update user profile {% endcomment %}
+    <div class="facts-container-image-1" style="margin-top: 2%;padding-left: 20px;">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Edit Profile</legend>
+                {{ u_form|crispy }}
+                {{ p_form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Update</button>
+            </div>
+        </form>
+    </div>
+</div>
 
-        </div>
-    </div>
-    {% else %}
-    <div>
-        please authenticate
-    </div>
-    {% endif %}
-{% endblock content %}
+
+<style>
+    img{
+       
+        transition: box-shadow .3s;
+    }
+    img:hover{ 
+        box-shadow: 0 0 20px rgba(0,0,0,.3);
+
+    }
+
+    .facts-container-2{
+        
+
+        background: #fff;
+        
+
+    }
+
+    .facts-container-1{
+
+        padding: 2rem 1.2rem;
+        margin-top: 40px;
+        margin-bottom: 0;
+        background-color: #f2f2f2;
+    }
+
+    .facts-container-image-1{
+        display: flex;
+        width: 100%;
+    }
+    .image-1{
+        
+        position: relative;
+        padding: 1.2%;
+    }
+    .text-1{
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        padding: 2%;
+        object-position: center;
+    }
+    .fact-1-header{
+        margin-bottom: 2%;
+    }
+
+</style>      
+
+{%endblock content%}

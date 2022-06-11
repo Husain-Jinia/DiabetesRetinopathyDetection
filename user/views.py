@@ -22,7 +22,7 @@ def register(request):
             print("here")
     else:
         form = UserRegisterProxy()
-    return render(request, 'users/register.html', {'form':form})
+    return render(request, 'register.html', {'form':form})
 
 @login_required
 def profile(request):
@@ -44,4 +44,4 @@ def profile(request):
         'u_form': u_form,
         'p_form': p_form
     }
-    return render(request, 'users/profile.html', context)
+    return render(request, 'profile.html', context)

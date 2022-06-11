@@ -30,6 +30,8 @@ class UserRegisterForm(UserCreationForm):
 # Proxy form for user registration
 class UserRegisterProxy(forms.Form):
     email = forms.EmailField()
+    age = forms.IntegerField()
+
 
     password1 = forms.CharField(max_length=256,required=True, widget=forms.PasswordInput())
     password2 = forms.CharField(max_length=256,required=True,widget=forms.PasswordInput())
