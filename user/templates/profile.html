@@ -2,34 +2,42 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
-
+{%if user.is_authenticated %}
 <div class="h-screen w-screen bg-gradient-to-r from-slate-400 to-slate-200">
     <div class="flex flex-col ">
         <div class="flex flex-col bg-gradient-to-r from-[#29AB87] to-cyan-400">
             <div class=" flex flex-row justify-between m-2">
-                <div class="basis-[8rem] text-left"><a href="{%url 'home'%}"><img class="h-[2.7rem] w-[2.7rem]" src="../static/photos/back.png" alt=""></a></div>
+                <div class="basis-[5rem] text-left"><a href="{%url 'home'%}"><img class="h-[2.7rem] w-[2.7rem]" src="../static/photos/back.png" alt=""></a></div>
                 <div class="flex-1 text-center">
-                    <p class="font-bold text-white text-2xl">{{user.username}}</p>
+                    <p class="font-bold text-white text-2xl uppercase pt-2">{{user.username}}</p>
                 </div>
                 <div class="basis-[8rem] text-right">
-                    <button class=" px-4 py-1.5 rounded bg-[#29AB87] text-white font-bold">Edit</button>
+                    <button class=" px-4 py-1.5 rounded bg-green-400 hover:bg-green-600 text-white font-bold mt-1.5 mr-3">EDIT</button>
                 </div>
             </div>
-            <div class="flex flex-col justify-center items-center py-[5rem]">
-                <div class="h-[10rem] w-[10rem] border border-2 rounded-full object-center bg-slate-200 ">
-                    <img class='h-[10rem] w-[10rem] border border-2 rounded-full' src="{{user.profile.profile_picture.url}}">
+            <div class="flex flex-col justify-center items-center py-[5rem] border border-3 m-3 ">
+                <div class="flex flex-col justify-center items-center px-4 py-8 ">
+                    <div class="h-[10rem] w-[10rem] border border-2 rounded-full object-center bg-slate-200 ">
+                        <img class='h-[10rem] w-[10rem] border border-2 rounded-full' src="{{user.profile.profile_picture.url}}">
+                    </div>
+                    <div>
+                        <div class="mt-4 border-2 px-10 py-1.5 uppercase">
+                            <h1 class="font-medium text-white text-2xl  font-extrabold">{{user.first_name}} {{user.last_name}}</h1>
+                        </div>
+                        <div class="text-center border border-2 px-6 mt-3">
+                            <div  class="my-2">
+                                <p class="font-sm text-white text-m font-medium uppercase"> {{user.email}} </p>
+                            </div>
+                            <div class="my-2">
+                                <p class="font-sm text-white text-m font-medium uppercase">{{user.profile.age}} years old </p>
+                            </div>
+                        </div>
+                    </div>
+                       
+                        
+                    </div>
                 </div>
-                    <div class="mt-4 border-4 p-2">
-                        <h1 class="font-medium text-white text-2xl  font-extrabold">{{user.first_name}} {{user.last_name}}</h1>
-                    </div>
-                    
-                    <div  class="mt-4">
-                        <p class="font-sm text-white text-m font-bold"> {{user.email}} </p>
-                    </div>
-                    <div class="">
-                        <p class="font-sm text-white text-m font-bold">{{user.profile.age}} years old </p>
-                    </div>
-                </div>
+                
                 
             </div>
         </div>
@@ -40,6 +48,23 @@
         </div>
     </div>
 </div>
+{% else %}
+<div class="content-section">
+    <form method="POST">
+        {% csrf_token %}
+       <h3>Permission Denied !! register or Login first</h3>
+        <div class="form-group my-3">
+            <button  class="btn btn-outline-info" type="submit"><a class="ml-2"  href="{% url 'register' %}">Sign Up<a/></button>
+        </div>
+    </form>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            Already Have An Account? <a class="ml-2" href="{% url 'login' %}">Sign In</a>
+        </small>
+    </div>
+</div>
+{% endif %}
+
 <script>    
     
 </script>
