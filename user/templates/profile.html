@@ -3,55 +3,45 @@
 {% block content %}
 
 
-<div class="h-screen w-screen">
-    <div class="flex flex-col">
-        <div class="flex flex-col">
+<div class="h-screen w-screen bg-gradient-to-r from-slate-400 to-slate-200">
+    <div class="flex flex-col ">
+        <div class="flex flex-col bg-gradient-to-r from-[#29AB87] to-cyan-400">
             <div class=" flex flex-row justify-between m-2">
-                <div class="basis-[15rem] text-left">back to home page</div>
-                <div class="flex-1 text-center">{{user.username}}</div>
-                <div class="basis-[15rem] text-right">edit</div>
-            </div>
-            <div class="flex flex-col justify-center items-center  border p-4 border-2">
-                <div class="h-[10rem] w-[10rem] border border-2 rounded-full object-center">
-                    <img class='h-[10rem] w-[10rem] border border-2 rounded-full ' src="{{user.profile.profile_picture.url}}" alt="">
+                <div class="basis-[8rem] text-left"><a href="{%url 'home'%}"><img class="h-[2.7rem] w-[2.7rem]" src="../static/photos/back.png" alt=""></a></div>
+                <div class="flex-1 text-center">
+                    <p class="font-bold text-white text-2xl">{{user.username}}</p>
                 </div>
-                <div class="mt-4">
-                    <h1>{{user.first_name}} {{user.last_name}}</h1>
-                </div>
-                <div class="m-3 pl-5">
-                    <p><span>{{user.profile.age}} years old</span> | <span> {{user.email}} </span></p>
+                <div class="basis-[8rem] text-right">
+                    <button class=" px-4 py-1.5 rounded bg-[#29AB87] text-white font-bold">Edit</button>
                 </div>
             </div>
-            
-
+            <div class="flex flex-col justify-center items-center py-[5rem]">
+                <div class="h-[10rem] w-[10rem] border border-2 rounded-full object-center bg-slate-200 ">
+                    <img class='h-[10rem] w-[10rem] border border-2 rounded-full' src="{{user.profile.profile_picture.url}}">
+                </div>
+                    <div class="mt-4 border-4 p-2">
+                        <h1 class="font-medium text-white text-2xl  font-extrabold">{{user.first_name}} {{user.last_name}}</h1>
+                    </div>
+                    
+                    <div  class="mt-4">
+                        <p class="font-sm text-white text-m font-bold"> {{user.email}} </p>
+                    </div>
+                    <div class="">
+                        <p class="font-sm text-white text-m font-bold">{{user.profile.age}} years old </p>
+                    </div>
+                </div>
+                
+            </div>
         </div>
-        <div></div>
+        <div class="flex flex-col ">
+            <div>
+
+            </div>
+        </div>
     </div>
 </div>
 <script>    
-    const modal = new Modal(targetEl, options);
-    const targetEl = document.getElementById('defaultModal');
-
-    // options with default values
-    const options = {
-    placement: 'center',
-    backdropClasses: 'bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-40',
-    onHide: () => {
-        console.log('modal is hidden');
-    },
-    onShow: () => {
-        console.log('modal is shown');
-    },
-    onToggle: () => {
-        console.log('modal has been toggled');
-    }
-    };
-    modal.show();
-
-    // hide the modal
-    modal.hide();
-
-    modal.toggle();
+    
 </script>
 
 {%endblock content%}
