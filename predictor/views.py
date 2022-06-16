@@ -86,7 +86,8 @@ def result(request,pk):
         return render(request, 'result.html',{'result':result,'values':values, 'data':data})
     else:
         result="NEGATIVE"
-        return render(request, 'result.html', {'result':result,'values':values}) 
+        data = suggestion()
+        return render(request, 'result.html', {'result':result,'values':values, 'data':data}) 
 
 #*****************************************************************************************
 # Mapping out document coordinates
@@ -307,7 +308,7 @@ def diabetesbasic(request):
 def diabetesbasicpred(request,pk):
     pk=int(pk)
 
-    values = DiabetesBasic.objects.get(pk=pk)
+    values = Diabetesbasic.objects.get(pk=pk)
 
 
     val2 = float(values.smoker)
@@ -321,17 +322,22 @@ def diabetesbasicpred(request,pk):
     val10 = float(values.NoDocCost)
     val11 = float(values.diffWalking)
     val12 = float(values.sex)
-    val13 = float(values.genHealth)
-    val14 = float(values.age)
+    val13 = float(values.BMI)
+    val15 = float(values.HighBP)
+    val16 = float(values.CholCheck)
+    val17 = float(values.HighChol)
+    val18 = float(values.age)
 
-    loaded_model = pickle.load(open('/home/husain/Projects/IBM-mini-project/models/diabetes_basic_model.sav', 'rb'))
+
+
+    loaded_model = pickle.load(open('/home/husain/Projects/IBM-mini-project/models/diabetes_modelbasic.sav', 'rb'))
     # result = loaded_model.score(X_test, Y_test)
 
-    y_pred= loaded_model.predict([[val2,val3,val4,val5,val6,val7,val8,val9,val10,val11,val12,val13,val14]])
+    y_pred= loaded_model.predict([[val2,val3,val4,val5,val6,val7,val8,val9,val10,val11,val12,val13,val15,val16,val17,val18]])
     print(y_pred)
 
     result=""
-    if y_pred == [1]:
+    if y_pred >= [1.]:
         result = "POSITIVE"
         data = suggestion()
         return render(request, 'diabetesBasicResult.html',{'result':result,'values':values, 'data':data})

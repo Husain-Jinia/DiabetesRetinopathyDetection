@@ -31,7 +31,7 @@ class UserRegisterForm(UserCreationForm):
 class UserRegisterProxy(forms.Form):
     email = forms.EmailField()
     age = forms.IntegerField()
-
+    bio = forms.Textarea()
 
     password1 = forms.CharField(max_length=256,required=True, widget=forms.PasswordInput())
     password2 = forms.CharField(max_length=256,required=True,widget=forms.PasswordInput())
@@ -51,6 +51,7 @@ class UserRegisterProxy(forms.Form):
         user.set_password(validated_data['password1'])
         profile = Profile.objects.create(
             age=validated_data['age'],
+            bio=validated_data['bio'],
             user=user
         )
         user.save()
@@ -68,6 +69,7 @@ class UserUpdateForm(forms.ModelForm):
 #form for updating user profile information
 class ProfileUpdateForm(forms.ModelForm):
     age = forms.IntegerField()
+    bio = forms.Textarea()
     class Meta:
         model = Profile
-        fields = ['profile_picture','age']
+        fields = ['profile_picture','age','bio']

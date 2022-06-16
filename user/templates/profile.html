@@ -3,47 +3,23 @@
 {% block content %}
 
 {%if user.is_authenticated %}
-<div class="h-screen w-screen bg-gradient-to-r from-slate-400 to-slate-200">
-    <div class="flex flex-col ">
-        <div class="flex flex-col bg-gradient-to-r from-[#29AB87] to-cyan-400">
-            <div class=" flex flex-row justify-between m-2">
-                <div class="basis-[5rem] text-left"><a href="{%url 'home'%}"><img class="h-[2.7rem] w-[2.7rem]" src="../static/photos/back.png" alt=""></a></div>
-                <div class="flex-1 text-center">
-                    <p class="font-bold text-white text-2xl uppercase pt-2">{{user.username}}</p>
-                </div>
-                <div class="basis-[8rem] text-right">
-                    <button class=" px-4 py-1.5 rounded bg-green-400 hover:bg-green-600 text-white font-bold mt-1.5 mr-3">EDIT</button>
-                </div>
-            </div>
-            <div class="flex flex-col justify-center items-center py-[5rem] border border-3 m-3 ">
-                <div class="flex flex-col justify-center items-center px-4 py-8 ">
-                    <div class="h-[10rem] w-[10rem] border border-2 rounded-full object-center bg-slate-200 ">
-                        <img class='h-[10rem] w-[10rem] border border-2 rounded-full' src="{{user.profile.profile_picture.url}}">
+<div class="flex flex-col w-screen h-screen">
+    <div class="hidden sm:flex  justify-between  p-3 bg-[#F8F8F8] border-solid border-[#C0C0C0] border-[0.5px]">
+
+    </div>
+    <div class="flex-1 flex-shrink m-5">
+        <div className='hidden sm:flex h-full w-full bg-gray-300 gap-2'>
+            <div className='bg-white  basis-[25rem] p-2'>
+                <div class="flex flex-col">
+                    <div class="h-[8rem] w-[8rem] border rounded-full ">
+                        <img src="" alt="">
                     </div>
                     <div>
-                        <div class="mt-4 border-2 px-10 py-1.5 uppercase">
-                            <h1 class="font-medium text-white text-2xl  font-extrabold">{{user.first_name}} {{user.last_name}}</h1>
-                        </div>
-                        <div class="text-center border border-2 px-6 mt-3">
-                            <div  class="my-2">
-                                <p class="font-sm text-white text-m font-medium uppercase"> {{user.email}} </p>
-                            </div>
-                            <div class="my-2">
-                                <p class="font-sm text-white text-m font-medium uppercase">{{user.profile.age}} years old </p>
-                            </div>
-                        </div>
-                    </div>
-                       
                         
                     </div>
                 </div>
-                
-                
             </div>
-        </div>
-        <div class="flex flex-col ">
-            <div>
-
+            <div className='bg-white flex-1'>
             </div>
         </div>
     </div>

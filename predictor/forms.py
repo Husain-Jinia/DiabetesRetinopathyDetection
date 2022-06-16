@@ -25,23 +25,26 @@ class PredictionForm(forms.ModelForm):
 class DiabetesbasicPredictionForm(forms.ModelForm):
     
     class Meta:
-        model = DiabetesBasic
-        fields = {'smoker','heartDiseaseorAttack','stroke','fruits','physActivity','veggies','hvyAlcoholConsump','anyHealthCare','NoDocCost','diffWalking','sex','genHealth','age'}
-        widgets={
-        'smoker' : forms.TextInput(attrs={'class':'form-control py-2'}),
-        'heartDiseaseorAttack' : forms.TextInput(attrs={'class':'form-control py-2'}),
-        'stroke' : forms.TextInput(attrs={'class':'form-control py-2'}),
-        'fruits' : forms.TextInput(attrs={'class':'form-control py-2'}),
-        'physActivity' : forms.TextInput(attrs={'class':'form-control py-2'}),
-        'veggies' : forms.TextInput(attrs={'class':'form-control py-2'}),
-        'hvyAlcoholConsump' : forms.TextInput(attrs={'class':'form-control py-2'}),
-        'anyHealthCare' : forms.TextInput(attrs={'class':'form-control py-2'}),
-        'NoDocCost' : forms.TextInput(attrs={'class':'form-control py-2'}),
-        'diffWalking' : forms.TextInput(attrs={'class':'form-control py-2'}),
-        'sex' : forms.TextInput(attrs={'class':'form-control py-2'}),
-        'genHealth' : forms.TextInput(attrs={'class':'form-control py-2'}),
-        'age' : forms.TextInput(attrs={'class':'form-control py-2'})
-        }
+        model = Diabetesbasic
+        fields = {'HighBP','CholCheck','HighChol','smoker','heartDiseaseorAttack','stroke','fruits','physActivity','veggies','hvyAlcoholConsump','anyHealthCare','NoDocCost','diffWalking','sex','BMI','age'}
+        # widgets={
+        # 'smoker' : forms.IntegerField(attrs={'class':'form-control py-2'}),
+        # 'heartDiseaseorAttack' : forms.IntegerField(attrs={'class':'form-control py-2'}),
+        # 'stroke' : forms.IntegerField(attrs={'class':'form-control py-2'}),
+        # 'fruits' : forms.IntegerField(attrs={'class':'form-control py-2'}),
+        # 'physcAtivity' : forms.IntegerField(attrs={'class':'form-control py-2'}),
+        # 'veggies' : forms.IntegerField(attrs={'class':'form-control py-2'}),
+        # 'hvyAlcoholConsump' : forms.IntegerField(attrs={'class':'form-control py-2'}),
+        # 'anyHealthCare' : forms.IntegerField(attrs={'class':'form-control py-2'}),
+        # 'NoDocCost' : forms.IntegerField(attrs={'class':'form-control py-2'}),
+        # 'diffWalking' : forms.IntegerField(attrs={'class':'form-control py-2'}),
+        # 'sex' : forms.IntegerField(attrs={'class':'form-control py-2'}),
+        # 'BMI' : forms.IntegerField(attrs={'class':'form-control py-2'}),
+        # 'age' : forms.IntegerField(attrs={'class':'form-control py-2'}),
+        # 'HighBP':forms.IntegerField(attrs={'class':'form-control py-2'}),
+        # 'CholCheck':forms.IntegerField(attrs={'class':'form-control py-2'}),
+        # 'HighChol':forms.IntegerField(attrs={'class':'form-control py-2'}),
+        # }
 
         def __init__(self, *args, **kwargs):
             super.__init__(*args, **kwargs)

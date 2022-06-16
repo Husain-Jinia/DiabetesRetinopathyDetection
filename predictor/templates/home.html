@@ -52,10 +52,13 @@
           <h1 class="h2 mb-4" style="font-weight: 600; color: #D0D0D0;">Spreading <span style="color: #9B5DE5;">Awareness</span></h1>
           <p class="text-secondary" style="line-height: 2;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit repellat iure laboriosam cum voluptatum, nam minima deserunt aut? Distinctio voluptatibus dolor quaerat quo omnis illo sequi at velit, odit quod!</p>
           <p class="text-secondary" style="line-height: 2;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit repellat iure laboriosam cum voluptatum, nam minima deserunt aut? Distinctio voluptatibus dolor quaerat quo omnis illo sequi at velit, odit quod!</p>
-          <a href="{% url 'register' %}" style="background-color: #9B5DE5; width: 240px;" class="btn px-4 py-3 mt-4 my-4 text-white d-flex align-items-center justify-content-between">
-            <span>Get started</span>
-            
-          </a>
+          <div class="">
+            <a href="{% url 'register' %}" style=" background-color: #9B5DE5; width: 240px;" class="btn px-4 py-3 mt-4 my-4 text-white d-flex align-items-center justify-content-between">
+              <span>Get started</span>
+              
+            </a>
+          </div>
+         
         </div>
         <div class="col-md-6 text-center">
           <div class="row images">
@@ -671,7 +674,28 @@ h1 {
 }
 
 .about-section{
-  height: 150vh;
+}
+
+@media (max-width: 1274px){
+  .box {
+    width: 98%;
+    height: 500px;
+    
+    
+  }
+
+  .model {
+    height: 300px;
+    width: 300px
+  }
+
+  .details p {
+    font-size: 16px;
+  }
+
+  .images{
+    display:none;
+  }
 }
 
 @media (max-width: 720px) {
@@ -690,7 +714,7 @@ h1 {
   }
 
   .about-section{
-    height:200vh;
+    
   }
   .images{
     display:none;

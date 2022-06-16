@@ -114,24 +114,31 @@
 
 </div>
 <hr> 
-<div style="color:white; text-align:center">
-    <h3> SUGGESTIONS  </h3>
-    {% for sugdata in data %}
-    <div>
-        {% if sugdata.properties.country is None %}
-        <p>country : unavailable</p>
-        {% else %}
-        <p>country : {{sugdata.properties.country}}</p>
-        {% endif %}
-        
-        {% if sugdata.properties.city is None %}
-        <p>city : unavailable</p>
-        {% else %}
-        <p>city : {{sugdata.properties.city}}</p>
-        {% endif %}
+<div  style="color:white; text-align:center">
+    <div class="mt-4">
+        <h3> NEARBY CLINICS AND HOSPITALS  </h3>
     </div>
+    <div class="flex flex-row justify-around my-10">
+        {% for sugdata in data %}
+        <div>
+            {% if sugdata.properties.country is None %}
+            <p>country : unavailable</p>
+            {% else %}
+            <p>country : {{sugdata.properties.country}}</p>
+            {% endif %}
+            
+            {% if sugdata.properties.city is None %}
+            <p>city : unavailable</p>
+            {% else %}
+            <p>city : {{sugdata.properties.city}}</p>
+            {% endif %}
+        </div>
+        {% endfor %}
 
-    {% endfor %}
+    </div>
+    
+
+    
 </div>
 
 <style>

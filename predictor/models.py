@@ -25,20 +25,42 @@ class DiabetesData(models.Model):
 
 # TODO (#2) : Replace IntegerField with IntegerChoices field
 
-class DiabetesBasic(models.Model):
-    smoker = models.IntegerField(max_length=1,default=0)
-    heartDiseaseorAttack = models.IntegerField(max_length=1,default=0)
-    stroke = models.IntegerField(max_length=1,default=0)
-    fruits = models.IntegerField(max_length=1,default=0)
-    physActivity = models.IntegerField(max_length=1,default=0)
-    veggies = models.IntegerField(max_length=1,default=0)
-    hvyAlcoholConsump = models.IntegerField(max_length=1,default=0)
-    anyHealthCare = models.IntegerField(max_length=1,default=0)
-    NoDocCost = models.IntegerField(max_length=1,default=0)
-    diffWalking = models.IntegerField(max_length=1,default=0)
-    sex =models.IntegerField(max_length=1,default=0)
-    genHealth = models.IntegerField(max_length=1, default=0)
-    age = models.IntegerField(max_length=3,default=0)
+# Diabetes_012	HighBP	HighChol	CholCheck	BMI	Smoker	Stroke	HeartDiseaseorAttack	PhysActivity	Fruits	Veggies	HvyAlcoholConsump	AnyHealthcare	NoDocbcCost		DiffWalk	Sex	Age
+# 'Education', 'Income', 'PhysHlth', 'GenHlth', 'MentHlth'
+class Diabetesbasic(models.Model):
+    YES = 1
+    NO = 0
+   
+    STATUS_CHOICES = (
+        (YES, 'yes'),
+        (NO, 'no')
+    )
+
+    MALE = 0
+    FEMALE = 1
+
+    GENDER = {
+        (MALE,'male'),
+        (FEMALE,'female')
+    }
+
+
+    smoker = models.IntegerField(default=0, choices = STATUS_CHOICES )
+    heartDiseaseorAttack = models.IntegerField(default=0, choices = STATUS_CHOICES)
+    stroke = models.IntegerField(default=0, choices = STATUS_CHOICES)
+    fruits = models.IntegerField(default=0, choices = STATUS_CHOICES)
+    physActivity = models.IntegerField(default=0, choices = STATUS_CHOICES)
+    veggies = models.IntegerField(default=0, choices = STATUS_CHOICES)
+    hvyAlcoholConsump = models.IntegerField(default=0, choices = STATUS_CHOICES)
+    anyHealthCare = models.IntegerField(default=0, choices = STATUS_CHOICES)
+    NoDocCost = models.IntegerField(default=0, choices = STATUS_CHOICES)
+    diffWalking = models.IntegerField(default=0, choices = STATUS_CHOICES)
+    sex =models.IntegerField(default=0, choices = GENDER)
+    BMI = models.IntegerField(default=0)
+    HighChol = models.IntegerField(default=0, choices = STATUS_CHOICES)
+    HighBP = models.IntegerField(default=0, choices = STATUS_CHOICES)
+    CholCheck = models.IntegerField(default=0, choices = STATUS_CHOICES)
+    age = models.IntegerField(default=0) 
 
 
 # fixed incorrect email address
