@@ -3,23 +3,27 @@
 {% block content %}
 
 {%if user.is_authenticated %}
-<div class="flex flex-col w-screen h-screen">
+<div class="flex flex-col h-screen">
     <div class="hidden sm:flex  justify-between  p-3 bg-[#F8F8F8] border-solid border-[#C0C0C0] border-[0.5px]">
 
     </div>
-    <div class="flex-1 flex-shrink m-5">
-        <div className='hidden sm:flex h-full w-full bg-gray-300 gap-2'>
-            <div className='bg-white  basis-[25rem] p-2'>
+    <div class="flex-1 flex-shrink-0 m-5">
+        <div className='hidden sm:flex flex flex-row h-full w-full bg-gray-300 gap-2'>
+            <div className='bg-white basis-[25rem] p-2'>
                 <div class="flex flex-col">
                     <div class="h-[8rem] w-[8rem] border rounded-full ">
-                        <img src="" alt="">
+                        <img src="{{user.profile.profile_picture.url}}" alt="profile picture">
                     </div>
-                    <div>
-                        
+                    <div class="mt-2 flex flex-col ">
+                        <h3 class="font-extrabold">{{user.username}}</h3>
+                        <h3 class="font-bold">{{user.first_name}} {{user.last_name}}</h3>
+                        <h3 class="font-bold">{{user.profile.age}}</h3>
+                        <h3 class="font-bold">{{user.profile.bio}}</h3>
                     </div>
                 </div>
             </div>
             <div className='bg-white flex-1'>
+                hi
             </div>
         </div>
     </div>
