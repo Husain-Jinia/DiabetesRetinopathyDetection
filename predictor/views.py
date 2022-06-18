@@ -28,6 +28,7 @@ from reportlab.lib.pagesizes import letter
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase import pdfmetrics
 from reportlab.lib import colors
+from reportlab.pdfbase.ttfonts import TTFont
 
 
 
@@ -115,36 +116,47 @@ def drawMyRuler(pdf):
 
 def result_pdf(request,pk): 
     buf = io.BytesIO() 
-    fileName = 'Diabetes_retinopathy_results.pdf'
-    documentTitle = 'Diabetes retinopathy'
+    fileName = 'Diabetes_results.pdf'
+    logo = "Di - Free - Se"
+    documentTitle = 'Diabetes Basic'
     pdf = canvas.Canvas(buf,fileName)
     pdf.setTitle(documentTitle)
-    title = 'Diabetic retinopathy report'
-    symptoms_title = 'Diabetes retinopathy symptoms'
+    title = 'Diabetes diagnosis report'
+    factors="factors"
+    values_text = "Values"
 
-    symptoms = [
-    'Spots or dark strings floating in your vision (floaters)',
-    'Blurred vision.',
-    'Fluctuating vision.',
-    'Dark or empty areas in your vision.',
-    'Vision loss.'
-    ]
+    
 
-    disclaimer = ["* Please don't treat this document as your final diagnosis report.", 
-    "Please consult your nearest ophthalmologist before getting any further treatment *"]
+    description = ["Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id neque libero. turpis dipiscing elit. ", 
+    "sodales velit Proin non fermentum libero, ut mollis felis. In dictum nec turpis turpis dipiscing elit."]
+
+    symptoms_title = 'Diabetes  symptoms'
+
+    disclaimer = ["Please don't treat this document as your final diagnosis report. Please", 
+    "consult your nearest ophthalmologist before getting any further treatment"]
 
     diagnosis_title='Your diagnosis'
 
-    pegnancies = 'pregnancies :'
-    glucose = 'glucose :'
-    blood_pressure = 'blood pressure :'
-    skin_thickness = 'skin thickness :'
-    insulin = 'insulin :'
-    BMI = 'bmi :'
-    DPF = 'Diabetes Pedigree function :'
-    age = 'age :'
-    result = 'result :'
-    
+    pegnancies = 'pregnancies '
+    glucose = 'glucose '
+    blood_pressure = 'blood pressure '
+    skin_thickness = 'skin thickness '
+    insulin = 'insulin '
+    BMI = 'bmi '
+    DPF = 'Diabetes Pedigree function '
+    age = 'age '
+    result = 'result '
+
+
+    pdf.setFillColorRGB(241/256,244/256,247/256)
+    pdf.rect(0,0,652,792, stroke=0,fill=1)
+
+    pdf.rotate(60) # rotate by 45 degree 
+    pdf.setFillColorCMYK(0,0,0,0.08) # font colour CYAN, MAGENTA, YELLOW and BLACK
+    pdf.setFont("Helvetica", 100) # font style and size
+    pdf.drawString(2*inch, -1*inch, "DI-FREE-SE") # String written 
+    pdf.rotate(-60) # restore the rotation 
+
     patient_data = DiabetesData.objects.get(pk=pk)
     
     preg_data = patient_data.pregnancies
@@ -157,43 +169,50 @@ def result_pdf(request,pk):
     age_data = patient_data.age
     result_data = 'POSITIVE'
 
-    drawMyRuler(pdf)
+    pdf.setLineWidth(0.2)
 
-    pdf.setFont('Courier-Bold', 30)
-    pdf.drawCentredString(300, 720, title)
-    pdf.line(30, 700, 550, 700)
+    pdf.setFillColorRGB(45/256, 52/256, 82/256)
+    pdf.rect(0,680,800,700,stroke=0,fill=1)
+    pdf.setFillColor(colors.whitesmoke)
+    pdf.setFont("Helvetica-Bold", 30)
+    logo_text = pdf.beginText(30,746)
+    logo_text.textLine(logo)
+    pdf.drawText(logo_text)
+    pdf.setFillColor(colors.white)
+    text_desc = pdf.beginText(30, 720)
+    text_desc.setFont("Helvetica", 11)
     
-    pdf.setFillColorRGB(255, 0, 0)
-    pdf.setFont("Courier-Bold", 16)
-    title_text = pdf.beginText(40,660)
-    title_text.textLine(symptoms_title)
+    for line in description:
+        text_desc.textLine(line)
+    pdf.drawText(text_desc)
+
+
+    pdf.setFillColorRGB(65/256, 108/256, 141/256)
+    pdf.rect(0,645,700,35,stroke=0,fill=1)
+    pdf.setFillColor(colors.whitesmoke)
+    pdf.setFont("Helvetica-BoldOblique", 16)
+    title_text = pdf.beginText(30,660)
+    title_text.textLine(title)
     pdf.drawText(title_text)
 
-    pdf.setFillColorRGB(255, 0, 0)
-    pdf.setFont("Courier-Bold", 16)
-    diagnosis_text = pdf.beginText(40,510)
-    diagnosis_text.textLine(diagnosis_title)
-    pdf.drawText(diagnosis_text)
-    pdf.line(30, 500, 550, 500)
+    pdf.setFillColorRGB(27/256, 47/256, 63/256)
+    pdf.setFont("Helvetica", 13)
 
-    text = pdf.beginText(40, 630)
-    text.setFont("Courier", 12)
-    text.setFillColor(colors.blue)
-    for line in symptoms:
-        text.textLine(line)
-    pdf.drawText(text)
+    text0 = pdf.beginText(50,580)
+    text1 = pdf.beginText(50,540)
+    text2 = pdf.beginText(50,520)
+    text3 = pdf.beginText(50,500)
+    text4 = pdf.beginText(50,480)
+    text5 = pdf.beginText(50,460)
+    text6 = pdf.beginText(50,440)
+    text7 = pdf.beginText(50,420)
+    text8 = pdf.beginText(50,400)
+    text9 = pdf.beginText(50,360)
 
 
-    text1 = pdf.beginText(50,480)
-    text2 = pdf.beginText(50,460)
-    text3 = pdf.beginText(50,440)
-    text4 = pdf.beginText(50,420)
-    text5 = pdf.beginText(50,400)
-    text6 = pdf.beginText(50,380)
-    text7 = pdf.beginText(50,360)
-    text8 = pdf.beginText(50,340)
-    text9 = pdf.beginText(50,300)
 
+    text0.textLine(factors)
+    pdf.drawText(text0)
     text1.textLine(pegnancies)
     text2.textLine(glucose)
     text3.textLine(blood_pressure)
@@ -203,17 +222,25 @@ def result_pdf(request,pk):
     text7.textLine(DPF)
     text8.textLine(age)
     text9.textLine(result)
+    
+    v_text0 = pdf.beginText(490,580)
+    
+    pdf.setLineWidth(1)
+    pdf.line(40, 560, 550, 560)
+    v_text1 = pdf.beginText(510,540)
+    v_text2 = pdf.beginText(510,520)
+    v_text3 = pdf.beginText(510,500)
+    v_text4 = pdf.beginText(510,480)
+    v_text5 = pdf.beginText(510,460)
+    v_text6 = pdf.beginText(510,440)
+    v_text7 = pdf.beginText(510,420)
+    v_text8 = pdf.beginText(510,400)
+    v_text9 = pdf.beginText(480,360)
 
-    v_text1 = pdf.beginText(490,480)
-    v_text2 = pdf.beginText(490,460)
-    v_text3 = pdf.beginText(490,440)
-    v_text4 = pdf.beginText(490,420)
-    v_text5 = pdf.beginText(490,400)
-    v_text6 = pdf.beginText(490,380)
-    v_text7 = pdf.beginText(490,360)
-    v_text8 = pdf.beginText(490,340)
-    v_text9 = pdf.beginText(490,300)
+   
 
+    v_text0.textLine(values_text)
+    pdf.drawText(v_text0)
     v_text1.textLine(preg_data)
     v_text2.textLine(glucose_data)
     v_text3.textLine(bp_data)
@@ -244,12 +271,17 @@ def result_pdf(request,pk):
     pdf.drawText(v_text7)
     pdf.drawText(v_text8)
     pdf.setFillColorRGB(255, 0, 0)
-    pdf.drawText(v_text9)   
-    pdf.line(30, 320, 550, 320)
+    pdf.drawText(v_text9) 
+    pdf.setLineWidth(1)  
+    pdf.line(40, 380, 550, 380)
 
-    text_disc = pdf.beginText(40, 250)
-    text_disc.setFont("Courier", 10)
-    text_disc.setFillColor(colors.blue)
+
+    pdf.setFillColorRGB(241/256,244/256,247/256)
+    pdf.rect(60,30,500,50,stroke=1,fill=1)
+
+    pdf.setFillColor(colors.black)
+    text_disc = pdf.beginText(140, 60)
+    text_disc.setFont("Helvetica", 11)
     for line in disclaimer:
         text_disc.textLine(line)
     pdf.drawText(text_disc)
