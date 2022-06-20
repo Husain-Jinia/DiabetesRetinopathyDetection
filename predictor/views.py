@@ -333,6 +333,59 @@ def diabetesbasic(request):
         return redirect(f'/diabetesbasicresult/'+ str(forms_pk))
     return render(request,'diabetesbasicpred.html',context)
 
+
+# ************************************************************************************
+# Utility function for result pdf generation
+# ************************************************************************************
+
+def pdf_generation_utils(pdf):
+    logo = "Di - Free - Se" 
+
+    description = ["Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id neque libero. turpis dipiscing elit. ", 
+    "sodales velit Proin non fermentum libero, ut mollis felis. In dictum nec turpis turpis dipiscing elit."]
+
+    disclaimer = ["Please don't treat this document as your final diagnosis report. Please", 
+    "consult your nearest ophthalmologist before getting any further treatment"]
+
+    pdf.setFillColorRGB(241/256,244/256,247/256)
+    pdf.rect(0,0,652,792, stroke=0,fill=1)
+
+    pdf.rotate(60) # rotate by 45 degree 
+    pdf.setFillColorCMYK(0,0,0,0.08) # font colour CYAN, MAGENTA, YELLOW and BLACK
+    pdf.setFont("Helvetica", 100) # font style and size
+    pdf.drawString(2*inch, -1*inch, "DI-FREE-SE") # String written 
+    pdf.rotate(-60) # restore the rotation 
+
+    pdf.setLineWidth(0.2)
+
+    pdf.setFillColorRGB(45/256, 52/256, 82/256)
+    pdf.rect(0,680,800,700,stroke=0,fill=1)
+    pdf.setFillColor(colors.whitesmoke)
+    pdf.setFont("Helvetica-Bold", 30)
+    logo_text = pdf.beginText(30,746)
+    logo_text.textLine(logo)
+    pdf.drawText(logo_text)
+    pdf.setFillColor(colors.white)
+    text_desc = pdf.beginText(30, 720)
+    text_desc.setFont("Helvetica", 11)
+    
+    for line in description:
+        text_desc.textLine(line)
+    pdf.drawText(text_desc)
+
+    pdf.setFillColorRGB(241/256,244/256,247/256)
+    pdf.rect(60,30,500,50,stroke=1,fill=1)
+
+    
+    text_disc = pdf.beginText(140, 60)
+    pdf.setFillColorRGB(1, 0, 0)
+    text_disc.setFont("Helvetica", 11)
+    for line in disclaimer:
+        text_disc.textLine(line)
+    pdf.drawText(text_disc)
+
+
+
 # *************************************************************************************
 # diabetes basic model and results
 # *************************************************************************************   
@@ -382,57 +435,27 @@ def diabetesbasicpred(request,pk):
 def result_diabetes_basic_pdf(request,pk):
     buf = io.BytesIO() 
     fileName = 'Diabetes_results.pdf'
-    logo = "Di - Free - Se"
+    
     documentTitle = 'Diabetes Basic'
     pdf = canvas.Canvas(buf,fileName)
     pdf.setTitle(documentTitle)
+    pdf_generation_utils(pdf)
     title = 'Diabetes diagnosis report'
     factors="factors"
     values_text = "Values"
 
-    
-
-    description = ["Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id neque libero. turpis dipiscing elit. ", 
-    "sodales velit Proin non fermentum libero, ut mollis felis. In dictum nec turpis turpis dipiscing elit."]
-
-    symptoms_title = 'Diabetes  symptoms'
-
-    disclaimer = ["Please don't treat this document as your final diagnosis report. Please", 
-    "consult your nearest ophthalmologist before getting any further treatment"]
 
     diagnosis_title='Your diagnosis'
 
 
     # HighBP	HighChol	CholCheck	BMI	Smoker	Stroke	HeartDiseaseorAttack	PhysActivity	Fruits	Veggies	HvyAlcoholConsump	AnyHealthcare	NoDocbcCost		DiffWalk	Sex	Age
 
-    pdf.setFillColorRGB(241/256,244/256,247/256)
-    pdf.rect(0,0,652,792, stroke=0,fill=1)
 
-    pdf.rotate(60) # rotate by 45 degree 
-    pdf.setFillColorCMYK(0,0,0,0.08) # font colour CYAN, MAGENTA, YELLOW and BLACK
-    pdf.setFont("Helvetica", 100) # font style and size
-    pdf.drawString(2*inch, -1*inch, "DI-FREE-SE") # String written 
-    pdf.rotate(-60) # restore the rotation 
 
     patient_data = Diabetesbasic.objects.get(pk=pk)
 
 
-    pdf.setLineWidth(0.2)
 
-    pdf.setFillColorRGB(45/256, 52/256, 82/256)
-    pdf.rect(0,680,800,700,stroke=0,fill=1)
-    pdf.setFillColor(colors.whitesmoke)
-    pdf.setFont("Helvetica-Bold", 30)
-    logo_text = pdf.beginText(30,746)
-    logo_text.textLine(logo)
-    pdf.drawText(logo_text)
-    pdf.setFillColor(colors.white)
-    text_desc = pdf.beginText(30, 720)
-    text_desc.setFont("Helvetica", 11)
-    
-    for line in description:
-        text_desc.textLine(line)
-    pdf.drawText(text_desc)
 
 
     pdf.setFillColorRGB(65/256, 108/256, 141/256)
@@ -610,16 +633,6 @@ def result_diabetes_basic_pdf(request,pk):
     pdf.line(40, 220, 550, 220)
 
 
-    pdf.setFillColorRGB(241/256,244/256,247/256)
-    pdf.rect(60,30,500,50,stroke=1,fill=1)
-
-    
-    text_disc = pdf.beginText(140, 60)
-    pdf.setFillColorRGB(1, 0, 0)
-    text_disc.setFont("Helvetica", 11)
-    for line in disclaimer:
-        text_disc.textLine(line)
-    pdf.drawText(text_disc)
 
 
     pdf.showPage()
