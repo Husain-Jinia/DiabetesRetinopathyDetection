@@ -2,7 +2,7 @@ from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
 
-# Create your models here.
+
 class DiabetesData(models.Model):
     name = models.CharField(max_length=256,default="")
     pregnancies = models.CharField(max_length=256, default="")
@@ -18,15 +18,7 @@ class DiabetesData(models.Model):
     def __str__(self):
         return self.name
 
-# TODO : Create diabetes-bsc db model (b-boolean value)
-# Smoker-b,	Stroke-b,	HeartDiseaseorAttack-b,	PhysActivity-b,	Fruits-b,	
-# Veggies-b,	HvyAlcoholConsump-b,	AnyHealthcare-b,	NoDocbcCost-b,	
-# GenHlth (1-5 scale),	DiffWalk-b,	Sex-b,	Age
 
-# TODO (#2) : Replace IntegerField with IntegerChoices field
-
-# Diabetes_012	HighBP	HighChol	CholCheck	BMI	Smoker	Stroke	HeartDiseaseorAttack	PhysActivity	Fruits	Veggies	HvyAlcoholConsump	AnyHealthcare	NoDocbcCost		DiffWalk	Sex	Age
-# 'Education', 'Income', 'PhysHlth', 'GenHlth', 'MentHlth'
 class Diabetesbasic(models.Model):
     YES = 1
     NO = 0
