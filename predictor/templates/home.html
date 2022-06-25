@@ -100,11 +100,11 @@
             <div class="details my-3">
              <button class="btn btn-outline-dark">
               {% if user.is_authenticated %}
-              <a href="{%url 'diabetesbasic'%}" style="text-decoration:none; color:black;">Get diagnosed</a></button>
+              <a href="{%url 'diabetesbasic'%}" style="text-decoration:none; color:black;">Get diagnosed</a>
               {% else %}
               <a href="{%url 'login'%}" style="text-decoration:none; color:black;">Get diagnosed</a>
               {% endif %}
-              
+            </button>
             </div>
           </div>
         </li>
@@ -136,7 +136,8 @@
             />
             <h2>Heart Disease</h2>
             <div class="details my-3">
-              <button class="btn btn-outline-dark">Get diagnosed</button>
+              <button class="btn btn-outline-dark">Get diagnosed
+              </button>
             </div>
           </div>
         </li>
@@ -154,11 +155,7 @@
             <div class="details my-3">
              
               <button class="btn btn-outline-dark">
-                {%if user.is_authenticated %}
-                <a href="{%url 'predict'%}" style="text-decoration:none; color:black;">Get diagnosed</a>
-                {% else %}
-                <a href="{%url 'login'%}" style="text-decoration:none; color:black;">Get diagnosed</a>
-                {% endif %}
+                Get diagnosed
               </button>
             </div>
           </div>

@@ -62,5 +62,4 @@ class Diabetesbasic(models.Model):
     CholCheck = models.IntegerField(default=0, choices = STATUS_CHOICES)
     age = models.IntegerField(default=0) 
 
-
-# fixed incorrect email address
+#Highbp highchol cholcheck BMI smoker stroke diabetes fruits vegetables heavyalcoholconsump healthcare NoDocCost DiffWalk sex age

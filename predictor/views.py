@@ -1,4 +1,4 @@
-#basic django imports
+# django imports
 from http.client import HTTPResponse
 from django.shortcuts import redirect, render
 from django.views.generic import  CreateView
@@ -19,7 +19,7 @@ import pickle
 import json
 import requests
 
-#document generation  
+# document generation  
 from django.http import FileResponse, QueryDict
 import io
 from reportlab.pdfgen import canvas
@@ -32,611 +32,241 @@ from reportlab.pdfbase.ttfonts import TTFont
 
 
 
-def home(request):
-    return render(request, 'home.html')
+# # ******************************************************************************************
+# # Form for dummy prediction model
+# # ******************************************************************************************
 
-# ******************************************************************************************
-# Form for dummy prediction model
-# ******************************************************************************************
-
-def predictor(request):
-    forms_pk = None
+# def predictor(request):
+#     forms_pk = None
     
-    form= PredictionForm(request.POST )
-    context = {'form':form }
-    if form.is_valid():
-        form.save()
-        x = form.save()
-        forms_pk = x.pk
-        return redirect(f'/result/'+ str(forms_pk))
-    return render(request,'screening.html',context)
+#     form= PredictionForm(request.POST )
+#     context = {'form':form }
+#     if form.is_valid():
+#         form.save()
+#         x = form.save()
+#         forms_pk = x.pk
+#         return redirect(f'/result/'+ str(forms_pk))
+#     return render(request,'screening.html',context)
     
-#*******************************************************************************************
-# Model for dummy prediction model
-#*******************************************************************************************
+# #*******************************************************************************************
+# # Model for dummy prediction model
+# #*******************************************************************************************
 
-def result(request,pk):
-    # dummy model
-    data = pd.read_csv(r"/home/husain/Projects/IBM-mini-project/predictor/archive/diabetes.csv")
-    pk = int(pk)
-    X = data.drop("Outcome", axis=1)
-    Y = data["Outcome"]
+# def result(request,pk):
+#     # dummy model
+#     data = pd.read_csv(r"/home/husain/Projects/IBM-mini-project/predictor/archive/diabetes.csv")
+#     pk = int(pk)
+#     X = data.drop("Outcome", axis=1)
+#     Y = data["Outcome"]
 
-    values = DiabetesData.objects.get(pk=pk)
+#     values = DiabetesData.objects.get(pk=pk)
 
-    X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2)
-    model = LogisticRegression()
-    model.fit(X_train, Y_train)
+#     X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2)
+#     model = LogisticRegression()
+#     model.fit(X_train, Y_train)
 
-    val1 = float(values.pregnancies)
-    val2 = float(values.glucose)
-    val3 = float(values.blood_pressure)
-    val4 = float(values.skin_thickness)
-    val5 = float(values.insulin)
-    val6 = float(values.pregnancies)
-    val7 = float(values.pregnancies)
-    val8 = float(values.pregnancies)
+#     val1 = float(values.pregnancies)
+#     val2 = float(values.glucose)
+#     val3 = float(values.blood_pressure)
+#     val4 = float(values.skin_thickness)
+#     val5 = float(values.insulin)
+#     val6 = float(values.pregnancies)
+#     val7 = float(values.pregnancies)
+#     val8 = float(values.pregnancies)
 
-    pred = model.predict([[val1,val2,val3,val4,val5,val6,val7,val8]])
+#     pred = model.predict([[val1,val2,val3,val4,val5,val6,val7,val8]])
 
-    result=""
-    if pred == [1]:
-        result = "POSITIVE"
-        # nearby doctor suggestions
-        data = suggestion()
-        return render(request, 'result.html',{'result':result,'values':values, 'data':data})
-    else:
-        result="NEGATIVE"
-        data = suggestion()
-        return render(request, 'result.html', {'result':result,'values':values, 'data':data}) 
+#     result=""
+#     if pred == [1]:
+#         result = "POSITIVE"
+#         # nearby doctor suggestions
+#         data = suggestion()
+#         return render(request, 'result.html',{'result':result,'values':values, 'data':data})
+#     else:
+#         result="NEGATIVE"
+#         data = suggestion()
+#         return render(request, 'result.html', {'result':result,'values':values, 'data':data}) 
 
-#*****************************************************************************************
-# Mapping out document coordinates
-#*****************************************************************************************
 
-def drawMyRuler(pdf):
-    pdf.drawString(100,810, 'x100')
-    pdf.drawString(200,810, 'x200')
-    pdf.drawString(300,810, 'x300')
-    pdf.drawString(400,810, 'x400')
-    pdf.drawString(500,810, 'x500')
+# #*******************************************************************************************
+# # pdf generation for dummy model
+# #******************************************************************************************* 
 
-    pdf.drawString(10,100, 'y100')
-    pdf.drawString(10,200, 'y200')
-    pdf.drawString(10,300, 'y300')
-    pdf.drawString(10,400, 'y400')
-    pdf.drawString(10,500, 'y500')
-    pdf.drawString(10,600, 'y600')
-    pdf.drawString(10,700, 'y700')
-    pdf.drawString(10,800, 'y800')
-
-#*******************************************************************************************
-# pdf generation for dummy model
-#******************************************************************************************* 
-
-def result_pdf(request,pk): 
-    buf = io.BytesIO() 
-    fileName = 'Diabetes_results.pdf'
-    logo = "Di - Free - Se"
-    documentTitle = 'Diabetes Basic'
-    pdf = canvas.Canvas(buf,fileName)
-    pdf.setTitle(documentTitle)
-    title = 'Diabetes diagnosis report'
-    factors="factors"
-    values_text = "Values"
+# def result_pdf(request,pk): 
+#     buf = io.BytesIO() 
+#     fileName = 'Diabetes_results.pdf'
+#     logo = "Di - Free - Se"
+#     documentTitle = 'Diabetes Basic'
+#     pdf = canvas.Canvas(buf,fileName)
+#     pdf.setTitle(documentTitle)
+#     title = 'Diabetes diagnosis report'
+#     factors="factors"
+#     values_text = "Values"
 
     
+#     description = ["Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id neque libero. turpis dipiscing elit. ", 
+#     "sodales velit Proin non fermentum libero, ut mollis felis. In dictum nec turpis turpis dipiscing elit."]
 
-    description = ["Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id neque libero. turpis dipiscing elit. ", 
-    "sodales velit Proin non fermentum libero, ut mollis felis. In dictum nec turpis turpis dipiscing elit."]
+#     symptoms_title = 'Diabetes  symptoms'
 
-    symptoms_title = 'Diabetes  symptoms'
+#     disclaimer = ["Please don't treat this document as your final diagnosis report. Please", 
+#     "consult your nearest ophthalmologist before getting any further treatment"]
 
-    disclaimer = ["Please don't treat this document as your final diagnosis report. Please", 
-    "consult your nearest ophthalmologist before getting any further treatment"]
+#     diagnosis_title='Your diagnosis'
 
-    diagnosis_title='Your diagnosis'
-
-    pegnancies = 'pregnancies '
-    glucose = 'glucose '
-    blood_pressure = 'blood pressure '
-    skin_thickness = 'skin thickness '
-    insulin = 'insulin '
-    BMI = 'bmi '
-    DPF = 'Diabetes Pedigree function '
-    age = 'age '
-    result = 'result '
+#     pegnancies = 'pregnancies '
+#     glucose = 'glucose '
+#     blood_pressure = 'blood pressure '
+#     skin_thickness = 'skin thickness '
+#     insulin = 'insulin '
+#     BMI = 'bmi '
+#     DPF = 'Diabetes Pedigree function '
+#     age = 'age '
+#     result = 'result '
 
 
-    pdf.setFillColorRGB(241/256,244/256,247/256)
-    pdf.rect(0,0,652,792, stroke=0,fill=1)
+#     pdf.setFillColorRGB(241/256,244/256,247/256)
+#     pdf.rect(0,0,652,792, stroke=0,fill=1)
 
-    pdf.rotate(60) # rotate by 45 degree 
-    pdf.setFillColorCMYK(0,0,0,0.08) # font colour CYAN, MAGENTA, YELLOW and BLACK
-    pdf.setFont("Helvetica", 100) # font style and size
-    pdf.drawString(2*inch, -1*inch, "DI-FREE-SE") # String written 
-    pdf.rotate(-60) # restore the rotation 
+#     pdf.rotate(60) # rotate by 45 degree 
+#     pdf.setFillColorCMYK(0,0,0,0.08) # font colour CYAN, MAGENTA, YELLOW and BLACK
+#     pdf.setFont("Helvetica", 100) # font style and size
+#     pdf.drawString(2*inch, -1*inch, "DI-FREE-SE") # String written 
+#     pdf.rotate(-60) # restore the rotation 
 
-    patient_data = DiabetesData.objects.get(pk=pk)
+#     patient_data = DiabetesData.objects.get(pk=pk)
     
-    preg_data = patient_data.pregnancies
-    glucose_data = patient_data.glucose
-    bp_data = patient_data.blood_pressure
-    st_data = patient_data.skin_thickness
-    insulin_data = patient_data.insulin
-    BMI_data = patient_data.BMI
-    DPF_data = patient_data.DPF
-    age_data = patient_data.age
-    result_data = 'POSITIVE'
+#     preg_data = patient_data.pregnancies
+#     glucose_data = patient_data.glucose
+#     bp_data = patient_data.blood_pressure
+#     st_data = patient_data.skin_thickness
+#     insulin_data = patient_data.insulin
+#     BMI_data = patient_data.BMI
+#     DPF_data = patient_data.DPF
+#     age_data = patient_data.age
+#     result_data = 'POSITIVE'
 
-    pdf.setLineWidth(0.2)
+#     pdf.setLineWidth(0.2)
 
-    pdf.setFillColorRGB(45/256, 52/256, 82/256)
-    pdf.rect(0,680,800,700,stroke=0,fill=1)
-    pdf.setFillColor(colors.whitesmoke)
-    pdf.setFont("Helvetica-Bold", 30)
-    logo_text = pdf.beginText(30,746)
-    logo_text.textLine(logo)
-    pdf.drawText(logo_text)
-    pdf.setFillColor(colors.white)
-    text_desc = pdf.beginText(30, 720)
-    text_desc.setFont("Helvetica", 11)
+#     pdf.setFillColorRGB(45/256, 52/256, 82/256)
+#     pdf.rect(0,680,800,700,stroke=0,fill=1)
+#     pdf.setFillColor(colors.whitesmoke)
+#     pdf.setFont("Helvetica-Bold", 30)
+#     logo_text = pdf.beginText(30,746)
+#     logo_text.textLine(logo)
+#     pdf.drawText(logo_text)
+#     pdf.setFillColor(colors.white)
+#     text_desc = pdf.beginText(30, 720)
+#     text_desc.setFont("Helvetica", 11)
     
-    for line in description:
-        text_desc.textLine(line)
-    pdf.drawText(text_desc)
+#     for line in description:
+#         text_desc.textLine(line)
+#     pdf.drawText(text_desc)
 
 
-    pdf.setFillColorRGB(65/256, 108/256, 141/256)
-    pdf.rect(0,645,700,35,stroke=0,fill=1)
-    pdf.setFillColor(colors.whitesmoke)
-    pdf.setFont("Helvetica-BoldOblique", 16)
-    title_text = pdf.beginText(30,660)
-    title_text.textLine(title)
-    pdf.drawText(title_text)
+#     pdf.setFillColorRGB(65/256, 108/256, 141/256)
+#     pdf.rect(0,645,700,35,stroke=0,fill=1)
+#     pdf.setFillColor(colors.whitesmoke)
+#     pdf.setFont("Helvetica-BoldOblique", 16)
+#     title_text = pdf.beginText(30,660)
+#     title_text.textLine(title)
+#     pdf.drawText(title_text)
 
-    pdf.setFillColorRGB(27/256, 47/256, 63/256)
-    pdf.setFont("Helvetica", 13)
+#     pdf.setFillColorRGB(27/256, 47/256, 63/256)
+#     pdf.setFont("Helvetica", 13)
 
-    text0 = pdf.beginText(50,580)
-    text1 = pdf.beginText(50,540)
-    text2 = pdf.beginText(50,520)
-    text3 = pdf.beginText(50,500)
-    text4 = pdf.beginText(50,480)
-    text5 = pdf.beginText(50,460)
-    text6 = pdf.beginText(50,440)
-    text7 = pdf.beginText(50,420)
-    text8 = pdf.beginText(50,400)
-    text9 = pdf.beginText(50,360)
+#     text0 = pdf.beginText(50,580)
+#     text1 = pdf.beginText(50,540)
+#     text2 = pdf.beginText(50,520)
+#     text3 = pdf.beginText(50,500)
+#     text4 = pdf.beginText(50,480)
+#     text5 = pdf.beginText(50,460)
+#     text6 = pdf.beginText(50,440)
+#     text7 = pdf.beginText(50,420)
+#     text8 = pdf.beginText(50,400)
+#     text9 = pdf.beginText(50,360)
 
 
 
-    text0.textLine(factors)
-    pdf.drawText(text0)
-    text1.textLine(pegnancies)
-    text2.textLine(glucose)
-    text3.textLine(blood_pressure)
-    text4.textLine(skin_thickness)
-    text5.textLine(insulin)
-    text6.textLine(BMI)
-    text7.textLine(DPF)
-    text8.textLine(age)
-    text9.textLine(result)
+#     text0.textLine(factors)
+#     pdf.drawText(text0)
+#     text1.textLine(pegnancies)
+#     text2.textLine(glucose)
+#     text3.textLine(blood_pressure)
+#     text4.textLine(skin_thickness)
+#     text5.textLine(insulin)
+#     text6.textLine(BMI)
+#     text7.textLine(DPF)
+#     text8.textLine(age)
+#     text9.textLine(result)
     
-    v_text0 = pdf.beginText(490,580)
+#     v_text0 = pdf.beginText(490,580)
     
-    pdf.setLineWidth(1)
-    pdf.line(40, 560, 550, 560)
-    v_text1 = pdf.beginText(510,540)
-    v_text2 = pdf.beginText(510,520)
-    v_text3 = pdf.beginText(510,500)
-    v_text4 = pdf.beginText(510,480)
-    v_text5 = pdf.beginText(510,460)
-    v_text6 = pdf.beginText(510,440)
-    v_text7 = pdf.beginText(510,420)
-    v_text8 = pdf.beginText(510,400)
-    v_text9 = pdf.beginText(480,360)
+#     pdf.setLineWidth(1)
+#     pdf.line(40, 560, 550, 560)
+#     v_text1 = pdf.beginText(510,540)
+#     v_text2 = pdf.beginText(510,520)
+#     v_text3 = pdf.beginText(510,500)
+#     v_text4 = pdf.beginText(510,480)
+#     v_text5 = pdf.beginText(510,460)
+#     v_text6 = pdf.beginText(510,440)
+#     v_text7 = pdf.beginText(510,420)
+#     v_text8 = pdf.beginText(510,400)
+#     v_text9 = pdf.beginText(480,360)
 
    
 
-    v_text0.textLine(values_text)
-    pdf.drawText(v_text0)
-    v_text1.textLine(preg_data)
-    v_text2.textLine(glucose_data)
-    v_text3.textLine(bp_data)
-    v_text4.textLine(st_data)
-    v_text5.textLine(insulin_data)
-    v_text6.textLine(BMI_data)
-    v_text7.textLine(DPF_data)
-    v_text8.textLine(age_data)
-    v_text9.textLine(result_data)
+#     v_text0.textLine(values_text)
+#     pdf.drawText(v_text0)
+#     v_text1.textLine(preg_data)
+#     v_text2.textLine(glucose_data)
+#     v_text3.textLine(bp_data)
+#     v_text4.textLine(st_data)
+#     v_text5.textLine(insulin_data)
+#     v_text6.textLine(BMI_data)
+#     v_text7.textLine(DPF_data)
+#     v_text8.textLine(age_data)
+#     v_text9.textLine(result_data)
+
+
+#     pdf.drawText(text1)
+#     pdf.drawText(text2)
+#     pdf.drawText(text3)
+#     pdf.drawText(text4)
+#     pdf.drawText(text5)
+#     pdf.drawText(text6)
+#     pdf.drawText(text7)
+#     pdf.drawText(text8)
+#     pdf.drawText(text9)
+
+#     pdf.drawText(v_text1)
+#     pdf.drawText(v_text2)
+#     pdf.drawText(v_text3)
+#     pdf.drawText(v_text4)
+#     pdf.drawText(v_text5)
+#     pdf.drawText(v_text6)
+#     pdf.drawText(v_text7)
+#     pdf.drawText(v_text8)
+#     pdf.setFillColorRGB(255, 0, 0)
+#     pdf.drawText(v_text9) 
+#     pdf.setLineWidth(1)  
+#     pdf.line(40, 380, 550, 380)
+
+
+#     pdf.setFillColorRGB(241/256,244/256,247/256)
+#     pdf.rect(60,30,500,50,stroke=1,fill=1)
+
+#     pdf.setFillColor(colors.black)
+#     text_disc = pdf.beginText(140, 60)
+#     text_disc.setFont("Helvetica", 11)
+#     for line in disclaimer:
+#         text_disc.textLine(line)
+#     pdf.drawText(text_disc)
+
+
+#     pdf.showPage()
+#     pdf.save()
+#     buf.seek(0)
+
+#     return FileResponse(buf, as_attachment=True, filename=fileName)
 
-
-    pdf.drawText(text1)
-    pdf.drawText(text2)
-    pdf.drawText(text3)
-    pdf.drawText(text4)
-    pdf.drawText(text5)
-    pdf.drawText(text6)
-    pdf.drawText(text7)
-    pdf.drawText(text8)
-    pdf.drawText(text9)
-
-    pdf.drawText(v_text1)
-    pdf.drawText(v_text2)
-    pdf.drawText(v_text3)
-    pdf.drawText(v_text4)
-    pdf.drawText(v_text5)
-    pdf.drawText(v_text6)
-    pdf.drawText(v_text7)
-    pdf.drawText(v_text8)
-    pdf.setFillColorRGB(255, 0, 0)
-    pdf.drawText(v_text9) 
-    pdf.setLineWidth(1)  
-    pdf.line(40, 380, 550, 380)
-
-
-    pdf.setFillColorRGB(241/256,244/256,247/256)
-    pdf.rect(60,30,500,50,stroke=1,fill=1)
-
-    pdf.setFillColor(colors.black)
-    text_disc = pdf.beginText(140, 60)
-    text_disc.setFont("Helvetica", 11)
-    for line in disclaimer:
-        text_disc.textLine(line)
-    pdf.drawText(text_disc)
-
-
-    pdf.showPage()
-    pdf.save()
-    buf.seek(0)
-
-    return FileResponse(buf, as_attachment=True, filename=fileName)
-
-
-#************************************************************************************
-# nearby doctor suggestions using 
-# ipify API (user ip extraction) 
-# ip-api (location details) 
-# and Photon api (geolocation)
-#************************************************************************************
-
-def suggestion():
-    ip = requests.get('http://api.ipify.org?format=json')
-    ip_data = json.loads(ip.text)
-    res = requests.get('http://ip-api.com/json/'+ip_data["ip"])
-    location_data_one = res.text
-    location_data = json.loads(location_data_one)
-    longitude = str(location_data['lat'])
-    latitude = str(location_data['lon'])
-    suggestions = requests.get('https://photon.komoot.io/api',params={'lat':latitude,'lon':longitude,'q':'clinic','limit':"3"})
-    suggestion_data = json.loads(suggestions.text)
-    data = suggestion_data['features']
-    print(data)
-    return data
-
-# *************************************************************************************
-# diabetes basic form
-# *************************************************************************************   
-
-def diabetesbasic(request):
-    forms_pk = None
-    
-    form= DiabetesbasicPredictionForm(request.POST )
-    
-    context = {'form':form }
-    if form.is_valid():
-        form.save()
-        x = form.save()
-        forms_pk = x.pk
-
-        return redirect(f'/diabetesbasicresult/'+ str(forms_pk))
-    return render(request,'diabetesbasicpred.html',context)
-
-
-# ************************************************************************************
-# Utility function for result pdf generation
-# ************************************************************************************
-
-def pdf_generation_utils(pdf):
-    logo = "Di - Free - Se" 
-
-    description = ["Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id neque libero. turpis dipiscing elit. ", 
-    "sodales velit Proin non fermentum libero, ut mollis felis. In dictum nec turpis turpis dipiscing elit."]
-
-    disclaimer = ["Please don't treat this document as your final diagnosis report. Please", 
-    "consult your nearest ophthalmologist before getting any further treatment"]
-
-    pdf.setFillColorRGB(241/256,244/256,247/256)
-    pdf.rect(0,0,652,792, stroke=0,fill=1)
-
-    pdf.rotate(60) # rotate by 45 degree 
-    pdf.setFillColorCMYK(0,0,0,0.08) # font colour CYAN, MAGENTA, YELLOW and BLACK
-    pdf.setFont("Helvetica", 100) # font style and size
-    pdf.drawString(2*inch, -1*inch, "DI-FREE-SE") # String written 
-    pdf.rotate(-60) # restore the rotation 
-
-    pdf.setLineWidth(0.2)
-
-    pdf.setFillColorRGB(45/256, 52/256, 82/256)
-    pdf.rect(0,680,800,700,stroke=0,fill=1)
-    pdf.setFillColor(colors.whitesmoke)
-    pdf.setFont("Helvetica-Bold", 30)
-    logo_text = pdf.beginText(30,746)
-    logo_text.textLine(logo)
-    pdf.drawText(logo_text)
-    pdf.setFillColor(colors.white)
-    text_desc = pdf.beginText(30, 720)
-    text_desc.setFont("Helvetica", 11)
-    
-    for line in description:
-        text_desc.textLine(line)
-    pdf.drawText(text_desc)
-
-    pdf.setFillColorRGB(241/256,244/256,247/256)
-    pdf.rect(60,30,500,50,stroke=1,fill=1)
-
-    
-    text_disc = pdf.beginText(140, 60)
-    pdf.setFillColorRGB(1, 0, 0)
-    text_disc.setFont("Helvetica", 11)
-    for line in disclaimer:
-        text_disc.textLine(line)
-    pdf.drawText(text_disc)
-
-
-
-# *************************************************************************************
-# diabetes basic model and results
-# *************************************************************************************   
-
-def diabetesbasicpred(request,pk):
-    pk=int(pk)
-
-    values = Diabetesbasic.objects.get(pk=pk)
-
-
-    val2 = float(values.smoker)
-    val3 = float(values.heartDiseaseorAttack)
-    val4 = float(values.stroke)
-    val5 = float(values.fruits)
-    val6 = float(values.physActivity)
-    val7 = float(values.veggies)
-    val8 = float(values.hvyAlcoholConsump)
-    val9 = float(values.anyHealthCare)
-    val10 = float(values.NoDocCost)
-    val11 = float(values.diffWalking)
-    val12 = float(values.sex)
-    val13 = float(values.BMI)
-    val15 = float(values.HighBP)
-    val16 = float(values.CholCheck)
-    val17 = float(values.HighChol)
-    val18 = float(values.age)
-
-
-
-    loaded_model = pickle.load(open('/home/husain/Projects/IBM-mini-project/models/diabetes_modelbasic.sav', 'rb'))
-    # result = loaded_model.score(X_test, Y_test)
-
-    y_pred= loaded_model.predict([[val2,val3,val4,val5,val6,val7,val8,val9,val10,val11,val12,val13,val15,val16,val17,val18]])
-    print(y_pred)
-
-    result=""
-    if y_pred >= [1.]:
-        result = "POSITIVE"
-        data = suggestion()
-        return render(request, 'diabetesBasicResult.html',{'result':result,'values':values, 'data':data})
-    else:
-        result="NEGATIVE"
-        return render(request, 'diabetesBasicResult.html', {'result':result,'values':values}) 
-
-
-
-def result_diabetes_basic_pdf(request,pk):
-    buf = io.BytesIO() 
-    fileName = 'Diabetes_results.pdf'
-    
-    documentTitle = 'Diabetes Basic'
-    pdf = canvas.Canvas(buf,fileName)
-    pdf.setTitle(documentTitle)
-    pdf_generation_utils(pdf)
-    title = 'Diabetes diagnosis report'
-    factors="factors"
-    values_text = "Values"
-
-
-    diagnosis_title='Your diagnosis'
-
-
-    # HighBP	HighChol	CholCheck	BMI	Smoker	Stroke	HeartDiseaseorAttack	PhysActivity	Fruits	Veggies	HvyAlcoholConsump	AnyHealthcare	NoDocbcCost		DiffWalk	Sex	Age
-
-
-
-    patient_data = Diabetesbasic.objects.get(pk=pk)
-
-
-
-
-
-    pdf.setFillColorRGB(65/256, 108/256, 141/256)
-    pdf.rect(0,645,700,35,stroke=0,fill=1)
-    pdf.setFillColor(colors.whitesmoke)
-    pdf.setFont("Helvetica-BoldOblique", 16)
-    title_text = pdf.beginText(30,660)
-    title_text.textLine(title)
-    pdf.drawText(title_text)
-
-    pdf.setFillColorRGB(27/256, 47/256, 63/256)
-    pdf.setFont("Helvetica", 13)
-
-    text0 = pdf.beginText(50,580)
-    text1 = pdf.beginText(50,540)
-    text2 = pdf.beginText(50,520)
-    text3 = pdf.beginText(50,500)
-    text4 = pdf.beginText(50,480)
-    text5 = pdf.beginText(50,460)
-    text6 = pdf.beginText(50,440)
-    text7 = pdf.beginText(50,420)
-    text8 = pdf.beginText(50,400)
-    text9 = pdf.beginText(50,380)
-    text10 = pdf.beginText(50,360)
-    text11 = pdf.beginText(50,340)
-    text12 = pdf.beginText(50,320)
-    text13 = pdf.beginText(50,300)
-    text14 = pdf.beginText(50,280)
-    text15 = pdf.beginText(50,260)
-    text16 = pdf.beginText(50,240)
-    text17 = pdf.beginText(50,200)
-
-    smoker_text ="smoker"
-    heartDiseaseorAttack_text = "Heart disease / Attack"
-    stroke_text = "stroke"
-    fruits_text = "fruits eaten"
-    physActivity_text = "Physical activity"
-    veggies_text = "Veggies"
-    hvyAlcoholConsump_text = "Heavy Alcohol Consumption"
-    anyHealthCare_text = "Any health care"
-    NoDocCost_text = "No doctor cost"
-    diffWalking_text  = "Diffiulty Walking"
-    sex_text = "sex"
-    BMI_text = "Body mass index"
-    HighChol_text = "High Cholestrol"
-    HighBP_text  = "High blood pressure"
-    CholCheck_text = "Cholestrol Check"
-    age_text = "age"
-    result_text = "result"
-
-    smoker = patient_data.smoker
-    
-    heartDiseaseorAttack = patient_data.heartDiseaseorAttack
-    stroke = patient_data.stroke    
-    fruits = patient_data.fruits
-    physActivity = patient_data.physActivity
-    veggies = patient_data.veggies
-    hvyAlcoholConsump = patient_data.hvyAlcoholConsump
-    anyHealthCare = patient_data.anyHealthCare
-    NoDocCost = patient_data.NoDocCost
-    diffWalking = patient_data.diffWalking
-    sex = patient_data.sex
-    BMI = patient_data.BMI
-    HighChol = patient_data.HighChol
-    HighBP = patient_data.HighBP
-    CholCheck = patient_data.CholCheck
-    age = patient_data.age
-    result="POSITIVE"
-
-
-
-    
-    v_text0 = pdf.beginText(490,580)
-    
-    pdf.setLineWidth(1)
-    pdf.line(40, 560, 550, 560)
-    v_text1 = pdf.beginText(510,540)
-    v_text2 = pdf.beginText(510,520)
-    v_text3 = pdf.beginText(510,500)
-    v_text4 = pdf.beginText(510,480)
-    v_text5 = pdf.beginText(510,460)
-    v_text6 = pdf.beginText(510,440)
-    v_text7 = pdf.beginText(510,420)
-    v_text8 = pdf.beginText(510,400)
-    v_text9 = pdf.beginText(510,380)
-    v_text10 = pdf.beginText(510,360)
-    v_text11 = pdf.beginText(510,340)
-    v_text12 = pdf.beginText(510,320)
-    v_text13 = pdf.beginText(510,300)
-    v_text14 = pdf.beginText(510,280)
-    v_text15 = pdf.beginText(510,260)
-    v_text16 = pdf.beginText(510,240)
-    v_text17 = pdf.beginText(480,200)
-
-    v_text0.textLine(values_text)
-    pdf.drawText(v_text0)
-    v_text1.textLine(str(smoker))
-    v_text2.textLine(str(heartDiseaseorAttack))
-    v_text3.textLine(str(stroke))
-    v_text4.textLine(str(fruits))
-    v_text5.textLine(str(physActivity))
-    v_text6.textLine(str(veggies))
-    v_text7.textLine(str(hvyAlcoholConsump))
-    v_text8.textLine(str(anyHealthCare))
-    v_text9.textLine(str(NoDocCost))
-    v_text10.textLine(str(diffWalking))
-    v_text11.textLine(str(sex))
-    v_text12.textLine(str(BMI))
-    v_text13.textLine(str(HighChol))
-    v_text14.textLine(str(HighBP))
-    v_text15.textLine(str(CholCheck))
-    v_text16.textLine(str(age))
-    v_text17.textLine(str(result))
-
-    
-
-    text0.textLine(factors)
-    pdf.drawText(text0)
-    text1.textLine(smoker_text)
-    text2.textLine(heartDiseaseorAttack_text)
-    text3.textLine(stroke_text)
-    text4.textLine(fruits_text)
-    text5.textLine(physActivity_text)
-    text6.textLine(veggies_text)
-    text7.textLine(hvyAlcoholConsump_text)
-    text8.textLine(anyHealthCare_text)
-    text9.textLine(NoDocCost_text)
-    text10.textLine(diffWalking_text)
-    text11.textLine(sex_text)
-    text12.textLine(BMI_text)
-    text13.textLine(HighChol_text)
-    text14.textLine(HighBP_text)
-    text15.textLine(CholCheck_text)
-    text16.textLine(age_text)
-    text17.textLine(result_text)
-
-
-    pdf.drawText(text1)
-    pdf.drawText(text2)
-    pdf.drawText(text3)
-    pdf.drawText(text4)
-    pdf.drawText(text5)
-    pdf.drawText(text6)
-    pdf.drawText(text7)
-    pdf.drawText(text8)
-    pdf.drawText(text9)
-    pdf.drawText(text10)
-    pdf.drawText(text11)
-    pdf.drawText(text12)
-    pdf.drawText(text13)
-    pdf.drawText(text14)
-    pdf.drawText(text15)
-    pdf.drawText(text16)
-    pdf.drawText(text17)
-
-    pdf.drawText(v_text1)
-    pdf.drawText(v_text2)
-    pdf.drawText(v_text3)
-    pdf.drawText(v_text4)
-    pdf.drawText(v_text5)
-    pdf.drawText(v_text6)
-    pdf.drawText(v_text7)
-    pdf.drawText(v_text8)
-    pdf.drawText(v_text9) 
-    pdf.drawText(v_text10)
-    pdf.drawText(v_text11)
-    pdf.drawText(v_text12) 
-    pdf.drawText(v_text13)   
-    pdf.drawText(v_text14) 
-    pdf.drawText(v_text15) 
-    pdf.drawText(v_text16) 
-    pdf.setFillColorRGB(255, 0, 0)
-    pdf.drawText(v_text17) 
-    pdf.setLineWidth(1)  
-    pdf.line(40, 220, 550, 220)
-
-
-
-
-    pdf.showPage()
-    pdf.save()
-    buf.seek(0)
-
-    return FileResponse(buf, as_attachment=True, filename=fileName)
