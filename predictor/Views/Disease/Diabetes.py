@@ -45,7 +45,7 @@ def diabetesbasic(request):
         forms_pk = x.pk
 
         return redirect(f'/diabetesbasicresult/'+ str(forms_pk))
-    return render(request,'diabetesbasicpred.html',context)
+    return render(request,'diabetes/diabetesbasicpred.html',context)
 
 
 def diabetesbasicpred(request,pk):
@@ -83,10 +83,10 @@ def diabetesbasicpred(request,pk):
     if y_pred >= [1.]:
         result = "POSITIVE"
         data = suggestion()
-        return render(request, 'diabetesBasicResult.html',{'result':result,'values':values, 'data':data})
+        return render(request, 'diabetes/diabetesBasicResult.html',{'result':result,'values':values, 'data':data})
     else:
         result="NEGATIVE"
-        return render(request, 'diabetesBasicResult.html', {'result':result,'values':values}) 
+        return render(request, 'diabetes/diabetesBasicResult.html', {'result':result,'values':values}) 
 
 def result_diabetes_basic_pdf(request,pk):
     buf = io.BytesIO() 

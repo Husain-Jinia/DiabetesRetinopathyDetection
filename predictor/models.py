@@ -55,3 +55,41 @@ class Diabetesbasic(models.Model):
     age = models.IntegerField(default=0) 
 
 #Highbp highchol cholcheck BMI smoker stroke diabetes fruits vegetables heavyalcoholconsump healthcare NoDocCost DiffWalk sex age
+
+class HeartDisease(models.Model):
+    YES = 1
+    NO = 0
+   
+    STATUS_CHOICES = (
+        (YES, 'yes'),
+        (NO, 'no')
+    )
+
+    MALE = 0
+    FEMALE = 1
+
+    GENDER = {
+        (MALE,'male'),
+        (FEMALE,'female')
+    }
+
+
+    smoker = models.IntegerField(default=0, choices = STATUS_CHOICES )
+    heartDiseaseorAttack = models.IntegerField(default=0, choices = STATUS_CHOICES)
+    stroke = models.IntegerField(default=0, choices = STATUS_CHOICES)
+    fruits = models.IntegerField(default=0, choices = STATUS_CHOICES)
+    diabetes = models.IntegerField(default=0, choices = STATUS_CHOICES)
+    veggies = models.IntegerField(default=0, choices = STATUS_CHOICES)
+    hvyAlcoholConsump = models.IntegerField(default=0, choices = STATUS_CHOICES)
+    anyHealthCare = models.IntegerField(default=0, choices = STATUS_CHOICES)
+    NoDocCost = models.IntegerField(default=0, choices = STATUS_CHOICES)
+    diffWalking = models.IntegerField(default=0, choices = STATUS_CHOICES)
+    sex =models.IntegerField(default=0, choices = GENDER)
+    BMI = models.IntegerField(default=0)
+    HighChol = models.IntegerField(default=0, choices = STATUS_CHOICES)
+    HighBP = models.IntegerField(default=0, choices = STATUS_CHOICES)
+    CholCheck = models.IntegerField(default=0, choices = STATUS_CHOICES)
+    age = models.IntegerField(default=0) 
+
+
+    

@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 <!DOCTYPE html> 
-   <section id="home">
-       <header>
-           <div class="container1">
+   <section id="home" class="relative w-100 h-100 bg-cover bg-center bg-fixed bg-no-repeat">
+       <header class="fixed top-0 left-0 h-[60px] w-100 bg-black overflow-hidden z-[100] ">
+           <div class="container1" class="pt-[10px] w-[1170px]">
                <div class="left">
                    <p  class="logo">Di - <span style="color:#29AB87">Free</span> - se</p>
                    <div class="hm-menu">
@@ -23,7 +23,7 @@
                            <li><a style="text-decoration: None" href="#contact">Contact</a></li>
                            {%if user.is_authenticated %}
                            <li><a style="text-decoration: None" href="{%url 'logout'%}">Logout</a></li>
-                           <li><a style="text-decoration: None" href="{%url 'profile'%}">Profile</a></li>
+                           {% comment %} <li><a style="text-decoration: None" href="{%url 'profile'%}">Profile</a></li> {% endcomment %}
                            {% else %}
                            <li><a style="text-decoration: None" href="{%url 'register'%}">Register</a></li>
                            <li><a style="text-decoration: None" href="{%url 'login'%}">Login</a></li>
@@ -288,34 +288,16 @@ body{
 }
 
 #home{
-    position: relative;
-    width: 100%;
-    height: 100%;
     background: -webkit-gradient(linear, left top, left bottom, from(rgba(16, 99, 117, 0.5)), to(rgba(0,0,0,.7))), url('../static/photos/medical2.jpg');
     background: -webkit-linear-gradient(rgba(16, 99, 117, 0.3), rgba(0,0,0,.7)), url('../static/photos/medical2.jpg');
     background: -o-linear-gradient(rgba(16, 99, 117, 0.3), rgba(0,0,0,.7)), url('../static/photos/medical2.jpg');
     background: linear-gradient(rgba(16, 99, 117, 0.3), rgba(0,0,0,.7)), url('../static/photos/medical2.jpg');
-    background-position: center center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
 }
 
-
-
-
 header{
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 60px;
-    width: 100%;
-    background-color: black;
-    overflow: hidden;
     -webkit-transition: .5s all ease-in-out;
     -o-transition: .5s all ease-in-out;
     transition: .5s all ease-in-out;
-    z-index: 1000;
 }
 
 .container1{
